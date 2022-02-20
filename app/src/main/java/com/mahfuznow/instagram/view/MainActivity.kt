@@ -15,6 +15,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
+        setTheme(R.style.Theme_Instagram) //Changing the app theme
         setContentView(binding.root)
 
         val toolbar = binding.toolbar

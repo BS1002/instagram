@@ -11,9 +11,11 @@
         <item name="colorOnSecondary">@color/black</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
+
     </style>
 
-    <style name="MyActionBarTheme" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <item name="android:background">@color/black</item>
+    <style name="MySplashScreenTheme" parent="Theme.Instagram">
+        <item name="android:windowBackground">@drawable/splash_screen_bg</item>
     </style>
+
 </resources>
