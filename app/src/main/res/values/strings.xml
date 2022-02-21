@@ -5,4 +5,6 @@
     <string name="post">Post</string>
     <string name="favourite">Favourite</string>
     <string name="profile">Profile</string>
+    <string name="post_details">Post Details</string>
+    <string name="details">Details</string>
 </resources>

@@ -5,26 +5,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavAction
-import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import com.mahfuznow.instagram.databinding.FragmentPostBinding
+import com.mahfuznow.instagram.databinding.FragmentPostDetailsBinding
 
-class PostFragment : Fragment() {
-    private lateinit var binding: FragmentPostBinding
+class PostDetailsFragment : Fragment() {
+    private lateinit var binding: FragmentPostDetailsBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentPostBinding.inflate(inflater, container, false)
+        binding = FragmentPostDetailsBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val navController = Navigation.findNavController(view)
-
-        binding.btnDetails.setOnClickListener {
-            navController.navigate(PostFragmentDirections.actionPostToPostDetailsFragment())
-        }
+        
     }
 }
