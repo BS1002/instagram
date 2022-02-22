@@ -7,4 +7,12 @@
     <string name="profile">Profile</string>
     <string name="post_details">Post Details</string>
     <string name="details">Details</string>
+    <string name="username">\@username</string>
+    <string name="follow">Follow</string>
+    <string name="user_image">User Image</string>
+    <string name="post_image">Post Image</string>
+    <string name="favourite_icon">Favourite Icon</string>
+    <string name="comment_icon">Comment Icon</string>
+    <string name="share_icon">Share Icon</string>
+    <string name="save_icon">Save Icon</string>
 </resources>
