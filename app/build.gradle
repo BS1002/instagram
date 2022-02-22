@@ -5,6 +5,7 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin' //Navigation Action Navigating
     id 'kotlin-kapt' //Kotlin Annotation Processor
     id 'dagger.hilt.android.plugin' //Hilt
+    id 'kotlin-parcelize' // Parcelize for ROOM
 }
 
 android {
@@ -65,6 +66,12 @@ dependencies {
     def rxJavaVersion = "3.0.0"
     implementation "io.reactivex.rxjava3:rxandroid:$rxJavaVersion"
     implementation "io.reactivex.rxjava3:rxjava:$rxJavaVersion"
+
+    //Room Database
+    def roomVersion = "2.4.1"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
+    kapt "androidx.room:room-compiler:$roomVersion"
 
     //Glide
     implementation 'com.github.bumptech.glide:glide:4.12.0'
