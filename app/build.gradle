@@ -62,10 +62,8 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava3:$retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$retrofitVersion"
 
-    //RxJava
-    def rxJavaVersion = "3.0.0"
-    implementation "io.reactivex.rxjava3:rxandroid:$rxJavaVersion"
-    implementation "io.reactivex.rxjava3:rxjava:$rxJavaVersion"
+    //Coroutine
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2'
 
     //Room Database
     def roomVersion = "2.4.1"

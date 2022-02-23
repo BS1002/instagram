@@ -3,13 +3,10 @@ package com.mahfuznow.instagram.viewmodel
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.mahfuznow.instagram.model.Photo
-import com.mahfuznow.instagram.model.user.User
+import androidx.lifecycle.viewModelScope
 import com.mahfuznow.instagram.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
-import io.reactivex.rxjava3.observers.DisposableSingleObserver
-import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -41,38 +38,38 @@ class HomeFragmentViewModel @Inject constructor(
 
 
     private fun fetchUsers() {
-        repository.getUsers()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<User>() {
-                override fun onSuccess(user: User) {
-                    Log.d("TAG", "fetchUsers: Loaded Successfully")
-                    userResults.value = user.results
+        viewModelScope.launch {
+            try {
+                val response = repository.getUsers()
+                if (response.isSuccessful) {
+                    Log.d("test", "fetchUsers: Loaded Successfully")
+                    userResults.value = response.body()?.results
                     isErrorUserLiveData.value = false
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.d("TAG", "fetchUsers: Failed")
+                } else {
                     isErrorUserLiveData.value = true
                 }
-            })
+            } catch (e: Exception) {
+                Log.d("test", "fetchUsers: ${e.message}")
+                isErrorUserLiveData.value = true
+            }
+        }
     }
 
     private fun fetchPhoto() {
-        repository.getPhotos()
-            .subscribeOn(Schedulers.newThread())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeWith(object : DisposableSingleObserver<List<Photo>>() {
-                override fun onSuccess(items: List<Photo>) {
-                    Log.d("TAG", "fetchPhoto: Loaded Successfully")
-                    photos.value = items
+        viewModelScope.launch {
+            try {
+                val response = repository.getPhotos()
+                if (response.isSuccessful) {
+                    Log.d("test", "fetchPhoto: Loaded Successfully")
+                    photos.value = response.body()
                     isErrorPhotoLiveData.value = false
-                }
-
-                override fun onError(e: Throwable) {
-                    Log.d("TAG", "fetchPhoto: Failed")
+                } else {
                     isErrorPhotoLiveData.value = true
                 }
-            })
+            } catch (e: Exception) {
+                Log.d("test", "fetchPhoto: ${e.message}")
+                isErrorPhotoLiveData.value = true
+            }
+        }
     }
 }

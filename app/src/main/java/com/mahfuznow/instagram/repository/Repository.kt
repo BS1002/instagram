@@ -5,6 +5,7 @@ import com.mahfuznow.instagram.model.user.User
 import com.mahfuznow.instagram.repository.remote.PhotoApi
 import com.mahfuznow.instagram.repository.remote.UserApi
 import io.reactivex.rxjava3.core.Single
+import retrofit2.Response
 import javax.inject.Inject
 
 class Repository @Inject constructor(
@@ -12,11 +13,11 @@ class Repository @Inject constructor(
     private val userApi: UserApi
 ) {
 
-    fun getPhotos(): Single<List<Photo>> {
+    suspend fun getPhotos(): Response<List<Photo>> {
         return photoApi.getPhotos()
     }
 
-    fun getUsers(): Single<User> {
+    suspend fun getUsers(): Response<User> {
         return userApi.getUserResponse(100)
     }
 
