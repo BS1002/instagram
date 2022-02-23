@@ -1,7 +1,7 @@
 package com.mahfuznow.instagram.di
 
-import com.mahfuznow.instagram.repository.remote.PhotoApi
-import com.mahfuznow.instagram.repository.remote.UserApi
+import com.mahfuznow.instagram.data.api.remote.PhotoApi
+import com.mahfuznow.instagram.data.api.remote.UserApi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

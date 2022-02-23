@@ -7,17 +7,17 @@
 
     <fragment
         android:id="@+id/home"
-        android:name="com.mahfuznow.instagram.view.HomeFragment"
+        android:name="com.mahfuznow.instagram.ui.main.view.HomeFragment"
         android:label="@string/home"
         tools:layout="@layout/fragment_home" />
     <fragment
         android:id="@+id/search"
-        android:name="com.mahfuznow.instagram.view.SearchFragment"
+        android:name="com.mahfuznow.instagram.ui.main.view.SearchFragment"
         android:label="@string/search"
         tools:layout="@layout/fragment_search" />
     <fragment
         android:id="@+id/post"
-        android:name="com.mahfuznow.instagram.view.PostFragment"
+        android:name="com.mahfuznow.instagram.ui.main.view.PostFragment"
         android:label="@string/post"
         tools:layout="@layout/fragment_post" >
         <action
@@ -26,17 +26,17 @@
     </fragment>
     <fragment
         android:id="@+id/favourite"
-        android:name="com.mahfuznow.instagram.view.FavouriteFragment"
+        android:name="com.mahfuznow.instagram.ui.main.view.FavouriteFragment"
         android:label="@string/favourite"
         tools:layout="@layout/fragment_favourite" />
     <fragment
         android:id="@+id/profile"
-        android:name="com.mahfuznow.instagram.view.ProfileFragment"
+        android:name="com.mahfuznow.instagram.ui.main.view.ProfileFragment"
         android:label="@string/profile"
         tools:layout="@layout/fragment_profile" />
     <fragment
         android:id="@+id/postDetailsFragment"
-        android:name="com.mahfuznow.instagram.view.PostDetailsFragment"
+        android:name="com.mahfuznow.instagram.ui.main.view.PostDetailsFragment"
         android:label="@string/post_details"
         tools:layout="@layout/fragment_post_details" >
         <action

@@ -6,7 +6,7 @@
     android:background="@color/orange"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".view.PostFragment">
+    tools:context=".ui.main.view.PostFragment">
 
     <TextView
         android:layout_width="wrap_content"

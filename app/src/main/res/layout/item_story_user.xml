@@ -6,7 +6,7 @@
 
         <variable
             name="userResult"
-            type="com.mahfuznow.instagram.model.user.Result" />
+            type="com.mahfuznow.instagram.data.model.user.Result" />
     </data>
 
     <androidx.cardview.widget.CardView

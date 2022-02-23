@@ -6,7 +6,7 @@
 
         <variable
             name="photo"
-            type="com.mahfuznow.instagram.model.Photo" />
+            type="com.mahfuznow.instagram.data.model.Photo" />
     </data>
 
     <androidx.cardview.widget.CardView
