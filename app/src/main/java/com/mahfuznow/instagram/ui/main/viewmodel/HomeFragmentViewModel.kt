@@ -4,6 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.mahfuznow.instagram.data.model.Photo
+import com.mahfuznow.instagram.data.model.user.Result
 import com.mahfuznow.instagram.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,10 +17,10 @@ class HomeFragmentViewModel @Inject constructor(
 ) : ViewModel() {
 
     //Observables
-    var photos: MutableLiveData<List<Any>> = MutableLiveData()
+    var photos: MutableLiveData<List<Photo>> = MutableLiveData()
     var isErrorPhotoLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
-    var userResults: MutableLiveData<List<Any>> = MutableLiveData()
+    var userResults: MutableLiveData<List<Result>> = MutableLiveData()
     var isErrorUserLiveData: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
@@ -31,8 +33,6 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     fun reFetchData() {
-        userResults.value = ArrayList()
-        photos.value = ArrayList()
         fetchData()
     }
 

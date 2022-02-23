@@ -8,7 +8,7 @@ import com.mahfuznow.instagram.databinding.ItemStoryUserBinding
 import com.mahfuznow.instagram.data.model.user.Result
 import javax.inject.Inject
 
-class UserResultAdapterDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
+class UserAdapterDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
     override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is Result
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =

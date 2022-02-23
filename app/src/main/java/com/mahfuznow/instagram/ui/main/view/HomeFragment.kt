@@ -1,6 +1,7 @@
 package com.mahfuznow.instagram.ui.main.view
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,8 +12,8 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.mahfuznow.instagram.ui.main.adapter.HomeFeedListDelegationAdapter
-import com.mahfuznow.instagram.ui.main.adapter.HomeStoryListDelegationAdapter
+import com.mahfuznow.instagram.data.model.StoryList
+import com.mahfuznow.instagram.ui.main.adapter.FeedDelegationAdapter
 import com.mahfuznow.instagram.databinding.FragmentHomeBinding
 import com.mahfuznow.instagram.ui.main.viewmodel.HomeFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,14 +30,13 @@ class HomeFragment : Fragment() {
     private lateinit var progressBar: ProgressBar
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var swipeRefreshListener: SwipeRefreshLayout.OnRefreshListener
-    private lateinit var storyRecyclerView: RecyclerView
     private lateinit var feedRecyclerView: RecyclerView
 
-    @Inject
-    lateinit var storyAdapter: HomeStoryListDelegationAdapter
+    private var isLoadedStory = false
+    private var isLoadedFeed = false
 
     @Inject
-    lateinit var feedAdapter: HomeFeedListDelegationAdapter
+    lateinit var feedDelegationAdapter: FeedDelegationAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -47,26 +47,21 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         progressBar = binding.progressBar
-
-        storyRecyclerView = binding.storyRecyclerView
         feedRecyclerView = binding.feedRecyclerView
 
         //items is a field defined in super class of the adapter
-        storyAdapter.items = storyList
-        feedAdapter.items = feedList
-
-        storyRecyclerView.setHasFixedSize(true)
-        storyRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        storyRecyclerView.adapter = storyAdapter
+        feedDelegationAdapter.items = feedList
 
         feedRecyclerView.setHasFixedSize(true)
         feedRecyclerView.layoutManager = LinearLayoutManager(context)
-        feedRecyclerView.adapter = feedAdapter
+        feedRecyclerView.adapter = feedDelegationAdapter
 
         observeLiveData()
 
         swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+            isLoadedStory = false
+            isLoadedFeed = false
             viewModel.reFetchData()
         }
         swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener)
@@ -75,18 +70,20 @@ class HomeFragment : Fragment() {
 
     private fun observeLiveData() {
         viewModel.userResults.observe(viewLifecycleOwner) {
+            Log.d("test", "observeLiveData: user")
+            isLoadedStory = true
             this.storyList.addAll(it)
-            //Toast.makeText(this, "Data loaded successfully", Toast.LENGTH_SHORT).show()
-            updateStoryList()
+            updateList()
         }
         viewModel.isErrorUserLiveData.observe(viewLifecycleOwner) {
             if (it) onError("User")
         }
 
         viewModel.photos.observe(viewLifecycleOwner) {
+            Log.d("test", "observeLiveData: photo")
+            isLoadedFeed = true
             this.feedList.addAll(it)
-            //Toast.makeText(this, "Data loaded successfully", Toast.LENGTH_SHORT).show()
-            updateFeedList()
+            updateList()
         }
         viewModel.isErrorPhotoLiveData.observe(viewLifecycleOwner) {
             if (it) onError("Photo")
@@ -100,17 +97,16 @@ class HomeFragment : Fragment() {
         Toast.makeText(context, "Failed to load data $msg's data", Toast.LENGTH_SHORT).show()
     }
 
-    private fun updateStoryList() {
-        storyAdapter.items = storyList
-        storyAdapter.notifyDataSetChanged()
-        progressBar.visibility = View.INVISIBLE
-        swipeRefreshLayout.isRefreshing = false
-    }
-
-    private fun updateFeedList() {
-        feedAdapter.items = feedList
-        feedAdapter.notifyDataSetChanged()
-        progressBar.visibility = View.INVISIBLE
-        swipeRefreshLayout.isRefreshing = false
+    private fun updateList() {
+        if (isLoadedStory && isLoadedFeed) {
+            Log.d("test", "updateList: ")
+            val updatedItems = ArrayList<Any>()
+            updatedItems.add(StoryList(storyList))
+            updatedItems.addAll(feedList)
+            feedDelegationAdapter.items = updatedItems
+            feedDelegationAdapter.notifyDataSetChanged()
+            progressBar.visibility = View.INVISIBLE
+            swipeRefreshLayout.isRefreshing = false
+        }
     }
 }
