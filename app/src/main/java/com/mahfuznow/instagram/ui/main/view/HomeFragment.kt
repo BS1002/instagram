@@ -13,11 +13,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahfuznow.instagram.data.model.StoryList
-import com.mahfuznow.instagram.ui.main.adapter.FeedDelegationAdapter
 import com.mahfuznow.instagram.databinding.FragmentHomeBinding
+import com.mahfuznow.instagram.ui.main.adapter.FeedAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.HomeFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
+
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -36,7 +37,7 @@ class HomeFragment : Fragment() {
     private var isLoadedFeed = false
 
     @Inject
-    lateinit var feedDelegationAdapter: FeedDelegationAdapter
+    lateinit var feedAdapter: FeedAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -50,11 +51,11 @@ class HomeFragment : Fragment() {
         feedRecyclerView = binding.feedRecyclerView
 
         //items is a field defined in super class of the adapter
-        feedDelegationAdapter.items = feedList
+        feedAdapter.items = feedList
 
         feedRecyclerView.setHasFixedSize(true)
         feedRecyclerView.layoutManager = LinearLayoutManager(context)
-        feedRecyclerView.adapter = feedDelegationAdapter
+        feedRecyclerView.adapter = feedAdapter
 
         observeLiveData()
 
@@ -69,24 +70,26 @@ class HomeFragment : Fragment() {
 
 
     private fun observeLiveData() {
-        viewModel.userResults.observe(viewLifecycleOwner) {
-            Log.d("test", "observeLiveData: user")
+        viewModel._users.observe(viewLifecycleOwner) {
+            Log.d("test", "observeLiveData: users")
             isLoadedStory = true
+            this.storyList.clear()
             this.storyList.addAll(it)
             updateList()
         }
-        viewModel.isErrorUserLiveData.observe(viewLifecycleOwner) {
-            if (it) onError("User")
+        viewModel._isErrorUsers.observe(viewLifecycleOwner) {
+            if (it) onError("Users")
         }
 
-        viewModel.photos.observe(viewLifecycleOwner) {
-            Log.d("test", "observeLiveData: photo")
+        viewModel._posts.observe(viewLifecycleOwner) {
+            Log.d("test", "observeLiveData: posts")
             isLoadedFeed = true
+            this.feedList.clear()
             this.feedList.addAll(it)
             updateList()
         }
-        viewModel.isErrorPhotoLiveData.observe(viewLifecycleOwner) {
-            if (it) onError("Photo")
+        viewModel._isErrorPosts.observe(viewLifecycleOwner) {
+            if (it) onError("Posts")
         }
 
     }
@@ -94,7 +97,7 @@ class HomeFragment : Fragment() {
     private fun onError(msg: String) {
         progressBar.visibility = View.INVISIBLE
         swipeRefreshLayout.isRefreshing = false
-        Toast.makeText(context, "Failed to load data $msg's data", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "Failed to load data $msg data", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateList() {
@@ -103,8 +106,8 @@ class HomeFragment : Fragment() {
             val updatedItems = ArrayList<Any>()
             updatedItems.add(StoryList(storyList))
             updatedItems.addAll(feedList)
-            feedDelegationAdapter.items = updatedItems
-            feedDelegationAdapter.notifyDataSetChanged()
+            feedAdapter.items = updatedItems
+            feedAdapter.notifyDataSetChanged()
             progressBar.visibility = View.INVISIBLE
             swipeRefreshLayout.isRefreshing = false
         }

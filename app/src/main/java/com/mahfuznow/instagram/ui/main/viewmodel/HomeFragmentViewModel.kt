@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.mahfuznow.instagram.data.model.Photo
-import com.mahfuznow.instagram.data.model.user.Result
+import com.mahfuznow.instagram.data.model.PostsData
+import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.data.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -17,11 +17,11 @@ class HomeFragmentViewModel @Inject constructor(
 ) : ViewModel() {
 
     //Observables
-    var photos: MutableLiveData<List<Photo>> = MutableLiveData()
-    var isErrorPhotoLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    var _posts: MutableLiveData<List<PostsData.Data>> = MutableLiveData()
+    var _isErrorPosts: MutableLiveData<Boolean> = MutableLiveData()
 
-    var userResults: MutableLiveData<List<Result>> = MutableLiveData()
-    var isErrorUserLiveData: MutableLiveData<Boolean> = MutableLiveData()
+    var _users: MutableLiveData<List<UsersData.Data>> = MutableLiveData()
+    var _isErrorUsers: MutableLiveData<Boolean> = MutableLiveData()
 
     init {
         fetchData()
@@ -29,7 +29,7 @@ class HomeFragmentViewModel @Inject constructor(
 
     private fun fetchData() {
         fetchUsers()
-        fetchPhoto()
+        fetchPosts()
     }
 
     fun reFetchData() {
@@ -40,35 +40,35 @@ class HomeFragmentViewModel @Inject constructor(
     private fun fetchUsers() {
         viewModelScope.launch {
             try {
-                val response = repository.getUsers()
+                val response = repository.getUsersData()
                 if (response.isSuccessful) {
                     Log.d("test", "fetchUsers: Loaded Successfully")
-                    userResults.value = response.body()?.results
-                    isErrorUserLiveData.value = false
+                    _users.value = response.body()?.data
+                    _isErrorUsers.value = false
                 } else {
-                    isErrorUserLiveData.value = true
+                    _isErrorUsers.value = true
                 }
             } catch (e: Exception) {
                 Log.d("test", "fetchUsers: ${e.message}")
-                isErrorUserLiveData.value = true
+                _isErrorUsers.value = true
             }
         }
     }
 
-    private fun fetchPhoto() {
+    private fun fetchPosts() {
         viewModelScope.launch {
             try {
-                val response = repository.getPhotos()
+                val response = repository.getPostsData()
                 if (response.isSuccessful) {
-                    Log.d("test", "fetchPhoto: Loaded Successfully")
-                    photos.value = response.body()
-                    isErrorPhotoLiveData.value = false
+                    Log.d("test", "fetchPosts: Loaded Successfully")
+                    _posts.value = response.body()?.data
+                    _isErrorPosts.value = false
                 } else {
-                    isErrorPhotoLiveData.value = true
+                    _isErrorPosts.value = true
                 }
             } catch (e: Exception) {
-                Log.d("test", "fetchPhoto: ${e.message}")
-                isErrorPhotoLiveData.value = true
+                Log.d("test", "fetchPosts: ${e.message}")
+                _isErrorPosts.value = true
             }
         }
     }

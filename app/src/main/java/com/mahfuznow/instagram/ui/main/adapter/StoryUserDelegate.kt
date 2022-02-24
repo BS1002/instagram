@@ -4,25 +4,25 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
+import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.databinding.ItemStoryUserBinding
-import com.mahfuznow.instagram.data.model.user.Result
 import javax.inject.Inject
 
-class UserAdapterDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
-    override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is Result
+class StoryUserDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
+    override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is UsersData.Data
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
-        PhotoViewHolder(
+        StoryUserViewHolder(
             ItemStoryUserBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     override fun onBindViewHolder(items: ArrayList<Any>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
-        val userResult = items[position]
-        userResult as Result
-        holder as PhotoViewHolder
+        val item = items[position]
+        item as UsersData.Data
+        holder as StoryUserViewHolder
 
-        holder.binding.userResult = userResult
+        holder.binding.user = item
     }
 
-    class PhotoViewHolder(val binding: ItemStoryUserBinding) : RecyclerView.ViewHolder(binding.root)
+    class StoryUserViewHolder(val binding: ItemStoryUserBinding) : RecyclerView.ViewHolder(binding.root)
 }

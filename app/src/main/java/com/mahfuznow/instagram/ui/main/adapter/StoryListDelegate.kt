@@ -10,9 +10,9 @@ import com.mahfuznow.instagram.data.model.StoryList
 import com.mahfuznow.instagram.databinding.ItemStoryListBinding
 import javax.inject.Inject
 
-class StoryListAdapterDelegate @Inject constructor(
+class StoryListDelegate @Inject constructor(
     private val application: Application,
-    private val storyDelegationAdapter: StoryDelegationAdapter
+    private val storyAdapter: StoryAdapter
 ) : AdapterDelegate<ArrayList<Any>>() {
     override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is StoryList
 
@@ -30,12 +30,12 @@ class StoryListAdapterDelegate @Inject constructor(
         storyItems.addAll(story.items)
 
         //items is a field defined in super class of the adapter
-        storyDelegationAdapter.items = storyItems
+        storyAdapter.items = storyItems
 
         with(holder.binding) {
             storyRecyclerView.setHasFixedSize(true)
             storyRecyclerView.layoutManager = LinearLayoutManager(application, LinearLayoutManager.HORIZONTAL, false)
-            storyRecyclerView.adapter = storyDelegationAdapter
+            storyRecyclerView.adapter = storyAdapter
         }
     }
 

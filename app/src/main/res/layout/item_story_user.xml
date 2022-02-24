@@ -5,8 +5,8 @@
     <data>
 
         <variable
-            name="userResult"
-            type="com.mahfuznow.instagram.data.model.user.Result" />
+            name="user"
+            type="com.mahfuznow.instagram.data.model.UsersData.Data" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -28,7 +28,7 @@
                 app:cardCornerRadius="50dp">
 
                 <ImageView
-                    loadImage="@{userResult.picture.medium}"
+                    loadImage="@{user.picture}"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:contentDescription="@string/user_image"

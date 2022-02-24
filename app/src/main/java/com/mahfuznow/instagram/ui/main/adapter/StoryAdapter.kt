@@ -3,11 +3,11 @@ package com.mahfuznow.instagram.ui.main.adapter
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import javax.inject.Inject
 
-class StoryDelegationAdapter @Inject constructor(
-    private val userAdapterDelegate: UserAdapterDelegate
+class StoryAdapter @Inject constructor(
+    private val storyUserDelegate: StoryUserDelegate
 ) : ListDelegationAdapter<ArrayList<Any>>() {
 
     init {
-        delegatesManager.addDelegate(userAdapterDelegate)
+        delegatesManager.addDelegate(storyUserDelegate)
     }
 }
