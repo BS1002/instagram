@@ -14,7 +14,7 @@ class Repository @Inject constructor(
     private val postApi: PostApi
 ) {
 
-    suspend fun getUsersDataFlow(limit: Int = 10, page: Int = 1) = flow<LoadingState<UsersData>> {
+    fun getUsersDataFlow(limit: Int = 10, page: Int = 1) = flow<LoadingState<UsersData>> {
         emit(LoadingState.loading())
         val usersData = userApi.getUsersData(limit, page)
         emit(LoadingState.success(usersData))
@@ -22,7 +22,7 @@ class Repository @Inject constructor(
         emit(LoadingState.error(it))
     }
 
-    suspend fun getPostDataFlow(limit: Int = 20, page: Int = 1) = flow<LoadingState<PostsData>> {
+    fun getPostDataFlow(limit: Int = 20, page: Int = 1) = flow<LoadingState<PostsData>> {
         emit(LoadingState.loading())
         val postsData = postApi.getPostsData(limit, page)
         emit(LoadingState.success(postsData))
