@@ -16,6 +16,20 @@ class HomeFragmentViewModel @Inject constructor(
 ) : ViewModel() {
 
     //Observables
-    val users: LiveData<LoadingState<UsersData>> = repository.getUsersDataFlow().asLiveData()
-    val posts: LiveData<LoadingState<PostsData>> = repository.getPostDataFlow().asLiveData()
+    private val reloadTrigger = MutableLiveData<Boolean>()
+
+    val users: LiveData<LoadingState<UsersData>> = Transformations.switchMap(reloadTrigger) {
+        repository.getUsersDataFlow().asLiveData()
+    }
+    val posts: LiveData<LoadingState<PostsData>> = Transformations.switchMap(reloadTrigger) {
+        repository.getPostDataFlow().asLiveData()
+    }
+
+    init {
+        reloadLiveData()
+    }
+
+    fun reloadLiveData() {
+        reloadTrigger.value = true
+    }
 }

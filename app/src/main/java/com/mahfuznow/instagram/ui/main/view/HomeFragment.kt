@@ -64,7 +64,7 @@ class HomeFragment : Fragment() {
         swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
             isLoadedStory = false
             isLoadedFeed = false
-            observeLiveData()
+            viewModel.reloadLiveData()
         }
         swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener)
     }
