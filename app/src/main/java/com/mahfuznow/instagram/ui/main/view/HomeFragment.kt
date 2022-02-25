@@ -70,25 +70,25 @@ class HomeFragment : Fragment() {
 
 
     private fun observeLiveData() {
-        viewModel._users.observe(viewLifecycleOwner) {
+        viewModel.users.observe(viewLifecycleOwner) {
             Log.d("test", "observeLiveData: users")
             isLoadedStory = true
             this.storyList.clear()
             this.storyList.addAll(it)
             updateList()
         }
-        viewModel._isErrorUsers.observe(viewLifecycleOwner) {
+        viewModel.isErrorUsers.observe(viewLifecycleOwner) {
             if (it) onError("Users")
         }
 
-        viewModel._posts.observe(viewLifecycleOwner) {
+        viewModel.posts.observe(viewLifecycleOwner) {
             Log.d("test", "observeLiveData: posts")
             isLoadedFeed = true
             this.feedList.clear()
             this.feedList.addAll(it)
             updateList()
         }
-        viewModel._isErrorPosts.observe(viewLifecycleOwner) {
+        viewModel.isErrorPosts.observe(viewLifecycleOwner) {
             if (it) onError("Posts")
         }
 

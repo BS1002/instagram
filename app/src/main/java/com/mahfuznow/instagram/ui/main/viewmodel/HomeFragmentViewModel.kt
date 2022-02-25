@@ -1,6 +1,7 @@
 package com.mahfuznow.instagram.ui.main.viewmodel
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,11 +18,15 @@ class HomeFragmentViewModel @Inject constructor(
 ) : ViewModel() {
 
     //Observables
-    var _posts: MutableLiveData<List<PostsData.Data>> = MutableLiveData()
-    var _isErrorPosts: MutableLiveData<Boolean> = MutableLiveData()
+    private var _posts: MutableLiveData<List<PostsData.Data>> = MutableLiveData()
+    val posts: LiveData<List<PostsData.Data>> = _posts
+    private var _isErrorPosts: MutableLiveData<Boolean> = MutableLiveData()
+    val isErrorPosts: MutableLiveData<Boolean> = _isErrorPosts
 
-    var _users: MutableLiveData<List<UsersData.Data>> = MutableLiveData()
-    var _isErrorUsers: MutableLiveData<Boolean> = MutableLiveData()
+    private var _users: MutableLiveData<List<UsersData.Data>> = MutableLiveData()
+    val users: MutableLiveData<List<UsersData.Data>> = _users
+    private var _isErrorUsers: MutableLiveData<Boolean> = MutableLiveData()
+    val isErrorUsers: MutableLiveData<Boolean> = _isErrorUsers
 
     init {
         fetchData()
