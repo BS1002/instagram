@@ -4,20 +4,29 @@ import com.mahfuznow.instagram.data.api.remote.PostApi
 import com.mahfuznow.instagram.data.api.remote.UserApi
 import com.mahfuznow.instagram.data.model.PostsData
 import com.mahfuznow.instagram.data.model.UsersData
-import retrofit2.Response
+import com.mahfuznow.instagram.util.LoadingState
+import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 
 class Repository @Inject constructor(
-    private val postApi: PostApi,
-    private val userApi: UserApi
+    private val userApi: UserApi,
+    private val postApi: PostApi
 ) {
 
-    suspend fun getPostsData(limit: Int = 20, page: Int = 1): Response<PostsData> {
-        return postApi.getPostsData(limit, page)
+    suspend fun getUsersDataFlow(limit: Int = 10, page: Int = 1) = flow<LoadingState<UsersData>> {
+        emit(LoadingState.loading())
+        val usersData = userApi.getUsersData(limit, page)
+        emit(LoadingState.success(usersData))
+    }.catch {
+        emit(LoadingState.error(it))
     }
 
-    suspend fun getUsersData(limit: Int = 10, page: Int = 1): Response<UsersData> {
-        return userApi.getUsersData(limit, page)
+    suspend fun getPostDataFlow(limit: Int = 20, page: Int = 1) = flow<LoadingState<PostsData>> {
+        emit(LoadingState.loading())
+        val postsData = postApi.getPostsData(limit, page)
+        emit(LoadingState.success(postsData))
+    }.catch {
+        emit(LoadingState.error(it))
     }
-
 }

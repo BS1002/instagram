@@ -16,6 +16,7 @@ import com.mahfuznow.instagram.data.model.StoryList
 import com.mahfuznow.instagram.databinding.FragmentHomeBinding
 import com.mahfuznow.instagram.ui.main.adapter.FeedAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.HomeFragmentViewModel
+import com.mahfuznow.instagram.util.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -71,33 +72,41 @@ class HomeFragment : Fragment() {
 
     private fun observeLiveData() {
         viewModel.users.observe(viewLifecycleOwner) {
-            Log.d("test", "observeLiveData: users")
-            isLoadedStory = true
-            this.storyList.clear()
-            this.storyList.addAll(it)
-            updateList()
-        }
-        viewModel.isErrorUsers.observe(viewLifecycleOwner) {
-            if (it) onError("Users")
-        }
+            when (it) {
+                is LoadingState.Error -> onError(it.e, "Users")
+                is LoadingState.Loading -> Log.d("test", "Users: Loading")
+                is LoadingState.Success -> {
+                    Log.d("test", "Users: Success")
+                    isLoadedStory = true
+                    this.storyList.clear()
+                    this.storyList.addAll(it.data.data)
+                    updateList()
+                }
+            }
 
-        viewModel.posts.observe(viewLifecycleOwner) {
-            Log.d("test", "observeLiveData: posts")
-            isLoadedFeed = true
-            this.feedList.clear()
-            this.feedList.addAll(it)
-            updateList()
         }
-        viewModel.isErrorPosts.observe(viewLifecycleOwner) {
-            if (it) onError("Posts")
+        viewModel.posts.observe(viewLifecycleOwner) {
+            when (it) {
+                is LoadingState.Error -> onError(it.e, "Posts")
+                is LoadingState.Loading -> Log.d("test", "Posts: Loading")
+                is LoadingState.Success -> {
+                    Log.d("test", "Posts: Success")
+                    isLoadedFeed = true
+                    this.feedList.clear()
+                    this.feedList.addAll(it.data.data)
+                    updateList()
+                }
+            }
+
         }
 
     }
 
-    private fun onError(msg: String) {
+    private fun onError(e: Throwable, msg: String) {
         progressBar.visibility = View.INVISIBLE
         swipeRefreshLayout.isRefreshing = false
-        Toast.makeText(context, "Failed to load data $msg data", Toast.LENGTH_SHORT).show()
+        Log.d("test", "Failed to load data ${e.message} data")
+        Toast.makeText(context, "Failed to load $msg data", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateList() {
