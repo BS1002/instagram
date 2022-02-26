@@ -15,4 +15,11 @@
     <string name="comment_icon">Comment Icon</string>
     <string name="share_icon">Share Icon</string>
     <string name="save_icon">Save Icon</string>
+    <string name="time">Time</string>
+    <string name="date">Date</string>
+    <string name="_100">100</string>
+    <string name="publish_data">Publish Data</string>
+    <string name="name">Name</string>
+    <string name="following">Following</string>
+    <string name="bookmark_icon">Bookmark Icon</string>
 </resources>
