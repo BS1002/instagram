@@ -98,12 +98,16 @@
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <ImageButton
+                <CheckBox
                     android:id="@+id/favourite"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
-                    android:background="@drawable/ic_favorite"
-                    android:contentDescription="@string/favourite_icon" />
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/favourite_checkbox"
+                    android:button="@null"
+                    android:checked="false"
+                    android:stateListAnimator="@animator/scale" />
 
                 <TextView
                     android:id="@+id/likeCount"

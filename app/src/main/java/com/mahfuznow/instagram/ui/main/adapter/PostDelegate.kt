@@ -1,9 +1,10 @@
 package com.mahfuznow.instagram.ui.main.adapter
 
+import android.os.Handler
+import android.os.Looper.getMainLooper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.instagram.R
@@ -28,11 +29,11 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
         holder.binding.run {
             post = item //Data binding
 
-            favourite.setOnClickListener { holder.toggleFavouriteIcon() }
+            //favourite.setOnClickListener { holder.toggleFavouriteIcon() }
             image.setOnClickListener(
                 object : DoubleClickListener() {
                     override fun onDoubleClick(v: View?) {
-                        holder.toggleFavouriteIcon()
+                       favourite.toggle()
                     }
                 }
             )
@@ -49,20 +50,7 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
                 }
             }
         }
-
     }
 
-    class PostViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
-        private val context = binding.root.context
-
-        var toggleFavourite = false
-        fun toggleFavouriteIcon() {
-            toggleFavourite = !toggleFavourite
-            binding.favourite.background = if (toggleFavourite) {
-                ContextCompat.getDrawable(context, R.drawable.ic_favorite_filled)
-            } else {
-                ContextCompat.getDrawable(context, R.drawable.ic_favorite)
-            }
-        }
-    }
+    class PostViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root)
 }
