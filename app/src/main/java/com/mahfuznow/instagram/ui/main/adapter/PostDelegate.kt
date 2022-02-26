@@ -4,6 +4,11 @@ import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AlphaAnimation
+import android.view.animation.Animation
+import android.view.animation.AnimationSet
+import android.view.animation.ScaleAnimation
+import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.instagram.R
@@ -11,6 +16,7 @@ import com.mahfuznow.instagram.data.model.PostsData
 import com.mahfuznow.instagram.databinding.ItemPostBinding
 import com.mahfuznow.instagram.ui.base.DoubleClickListener
 import javax.inject.Inject
+
 
 class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
     override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is PostsData.Data
@@ -52,6 +58,7 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
         private val bookmark = binding.bookmark
         private val follow = binding.follow
         private val image = binding.image
+        private val imageHeart = binding.imageHeart
 
         fun onBind(item: PostsData.Data, position: Int) {
 
@@ -65,6 +72,7 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
                 object : DoubleClickListener() {
                     override fun onDoubleClick(v: View?) {
                         favourite.toggle()
+                        animateHeart(imageHeart)
                     }
                 }
             )
@@ -96,6 +104,29 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
                     context.getString(R.string.follow)
                 }
             }
+        }
+
+        fun animateHeart(view: ImageView) {
+            val scaleAnimation = ScaleAnimation(
+                0.0f, 1.0f, 0.0f, 1.0f,
+                Animation.RELATIVE_TO_SELF, 0.5f,
+                Animation.RELATIVE_TO_SELF, 0.5f
+            )
+            prepareAnimation(scaleAnimation)
+            val alphaAnimation = AlphaAnimation(0.0f, 1.0f)
+            prepareAnimation(alphaAnimation)
+            val animation = AnimationSet(true)
+            animation.addAnimation(alphaAnimation)
+            animation.addAnimation(scaleAnimation)
+            animation.duration = 700
+            animation.fillAfter = true
+            view.startAnimation(animation)
+        }
+
+        private fun prepareAnimation(animation: Animation): Animation {
+            animation.repeatCount = 1
+            animation.repeatMode = Animation.REVERSE
+            return animation
         }
     }
 }
