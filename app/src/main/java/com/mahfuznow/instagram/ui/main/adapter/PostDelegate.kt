@@ -1,7 +1,5 @@
 package com.mahfuznow.instagram.ui.main.adapter
 
-import android.os.Handler
-import android.os.Looper.getMainLooper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,24 +27,20 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
         holder.binding.run {
             post = item //Data binding
 
-            //favourite.setOnClickListener { holder.toggleFavouriteIcon() }
             image.setOnClickListener(
                 object : DoubleClickListener() {
                     override fun onDoubleClick(v: View?) {
-                       favourite.toggle()
+                        favourite.toggle()
                     }
                 }
             )
 
-            var toggleFollow = false
-            follow.apply {
+            follow.run {
                 setOnClickListener {
-                    toggleFollow = !toggleFollow
-                    text = if (toggleFollow) {
+                    text = if (isChecked)
                         context.getString(R.string.following)
-                    } else {
+                    else
                         context.getString(R.string.follow)
-                    }
                 }
             }
         }

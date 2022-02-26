@@ -4,8 +4,13 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable-v23/splash_screen_bg.xml" value="0.1635" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/bookmark_checkbox.xml" value="0.1685" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/circular_border.xml" value="0.1635" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/favourite_checkbox_selector.xml" value="0.1685" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/follow_checkbox.xml" value="0.1685" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/follow_checkbox_text.xml" value="0.1685" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_bookmark_border.xml" value="0.1685" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_bookmark_filled.xml" value="0.1685" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_favorite_filled.xml" value="0.2445" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1635" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_logo.xml" value="0.2445" />
