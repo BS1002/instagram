@@ -10,6 +10,7 @@ import android.view.animation.AnimationSet
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.snackbar.Snackbar
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.data.model.PostsData
@@ -92,6 +93,9 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
             bookmark.run {
                 setOnClickListener {
                     bookmarkStates.put(position, isChecked)
+                    if (isChecked) {
+                        Snackbar.make(it, "Saved as a collection", Snackbar.LENGTH_SHORT).show()
+                    }
                 }
             }
         }

@@ -78,6 +78,7 @@
                     android:checked="false"
                     android:padding="10dp"
                     android:text="@string/follow"
+                    android:background="@null"
                     android:textAllCaps="true"
                     android:textColor="@drawable/checkbox_follow"
                     android:textSize="12sp"
