@@ -11,12 +11,14 @@ abstract class OnSingleDoubleClickListener : View.OnClickListener {
     private var timestampLastClick: Long
     private val handler: Handler
     private val runnable: Runnable
+    private var view: View? = null
 
-    override fun onClick(v: View?) {
+    override fun onClick(view: View) {
+        this.view = view
         if (SystemClock.elapsedRealtime() - timestampLastClick < doubleClickQualificationSpanInMillis) {
             isSingleEvent = false
             handler.removeCallbacks(runnable)
-            onDoubleClick()
+            onDoubleClick(view)
             return
         }
         isSingleEvent = true
@@ -24,8 +26,8 @@ abstract class OnSingleDoubleClickListener : View.OnClickListener {
         timestampLastClick = SystemClock.elapsedRealtime()
     }
 
-    abstract fun onDoubleClick()
-    abstract fun onSingleClick()
+    abstract fun onDoubleClick(view: View)
+    abstract fun onSingleClick(view: View)
 
     companion object {
         private const val DEFAULT_QUALIFICATION_SPAN: Long = 200
@@ -36,7 +38,7 @@ abstract class OnSingleDoubleClickListener : View.OnClickListener {
         handler = Handler(Looper.getMainLooper())
         runnable = Runnable {
             if (isSingleEvent) {
-                onSingleClick()
+                view?.let { onSingleClick(it) }
             }
         }
     }

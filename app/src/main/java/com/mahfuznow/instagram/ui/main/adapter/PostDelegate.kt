@@ -2,6 +2,7 @@ package com.mahfuznow.instagram.ui.main.adapter
 
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
@@ -71,11 +72,12 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
 
             image.setOnClickListener(
                 object : OnSingleDoubleClickListener() {
-                    override fun onDoubleClick() {
+                    override fun onDoubleClick(view: View) {
                         favourite.toggle()
                         animateHeart(imageHeart)
                     }
-                    override fun onSingleClick() {
+
+                    override fun onSingleClick(view: View) {
                         Toast.makeText(context, "Single Click", Toast.LENGTH_SHORT).show()
                     }
                 }
