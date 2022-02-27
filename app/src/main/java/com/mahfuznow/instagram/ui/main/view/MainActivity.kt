@@ -37,12 +37,15 @@ class MainActivity : AppCompatActivity() {
 
         //Customising ActionBar and BottomNavigation based on the destination
         navController.addOnDestinationChangedListener { _, destination, _ ->
-            if (destination.id == R.id.postDetailsFragment) {
-                supportActionBar?.hide()
-                bottomNavigation.visibility = View.GONE
-            } else {
-                supportActionBar?.show()
-                bottomNavigation.visibility = View.VISIBLE
+            when(destination.id){
+                R.id.viewStoryFragment -> {
+                    supportActionBar?.hide()
+                    bottomNavigation.visibility = View.GONE
+                }
+                else -> {
+                    supportActionBar?.show()
+                    bottomNavigation.visibility = View.VISIBLE
+                }
             }
         }
     }

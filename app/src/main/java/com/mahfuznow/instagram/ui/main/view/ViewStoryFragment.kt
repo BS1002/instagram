@@ -6,13 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
-import com.mahfuznow.instagram.databinding.FragmentPostDetailsBinding
+import com.mahfuznow.instagram.databinding.FragmentViewStoryBinding
 
-class PostDetailsFragment : Fragment() {
-    private lateinit var binding: FragmentPostDetailsBinding
+class ViewStoryFragment : Fragment() {
+    private lateinit var binding: FragmentViewStoryBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentPostDetailsBinding.inflate(inflater, container, false)
+        binding = FragmentViewStoryBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -20,8 +20,12 @@ class PostDetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
-            val post = PostDetailsFragmentArgs.fromBundle(it).post
-            binding.post = post
+            val user = ViewStoryFragmentArgs.fromBundle(it).user
+            binding.user = user
+        }
+
+        binding.cancel.setOnClickListener {
+            it.findNavController().navigateUp()
         }
     }
 }

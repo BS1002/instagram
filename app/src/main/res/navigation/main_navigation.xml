@@ -13,6 +13,9 @@
         <action
             android:id="@+id/action_home_to_postDetailsFragment"
             app:destination="@id/postDetailsFragment" />
+        <action
+            android:id="@+id/action_home_to_viewStoryFragment"
+            app:destination="@id/viewStoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/search"
@@ -42,5 +45,13 @@
         <argument
             android:name="post"
             app:argType="com.mahfuznow.instagram.data.model.PostsData$Data" />
+    </fragment>
+    <fragment
+        android:id="@+id/viewStoryFragment"
+        android:name="com.mahfuznow.instagram.ui.main.view.ViewStoryFragment"
+        android:label="ViewStoryFragment" >
+        <argument
+            android:name="user"
+            app:argType="com.mahfuznow.instagram.data.model.UsersData$Data" />
     </fragment>
 </navigation>

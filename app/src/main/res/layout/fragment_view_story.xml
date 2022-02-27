@@ -6,18 +6,28 @@
     <data>
 
         <variable
-            name="post"
-            type="com.mahfuznow.instagram.data.model.PostsData.Data" />
+            name="user"
+            type="com.mahfuznow.instagram.data.model.UsersData.Data" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.main.view.PostDetailsFragment">
+        tools:context=".ui.main.view.ViewStoryFragment">
+
+        <ImageButton
+            android:id="@+id/cancel"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_cancel"
+            android:contentDescription="@string/cancel_button"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageView
             android:id="@+id/image"
-            loadImage="@{post.image}"
+            loadImage="@{user.picture}"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:contentDescription="@string/post_image"

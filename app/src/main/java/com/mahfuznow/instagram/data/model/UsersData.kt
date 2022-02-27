@@ -16,7 +16,7 @@ data class UsersData(
         val firstName: String, // Kitty
         val id: String, // 60d0fe4f5311236168a10a25
         val lastName: String, // Steward
-        val picture: String, // https://randomuser.me/api/portraits/med/women/78.jpg
+        var picture: String, // https://randomuser.me/api/portraits/med/women/78.jpg
         val title: String // ms
     ) : Parcelable
 }
