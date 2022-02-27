@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
 import com.mahfuznow.instagram.databinding.FragmentPostDetailsBinding
 
 class PostDetailsFragment : Fragment() {
@@ -18,6 +19,13 @@ class PostDetailsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        
+        arguments?.let {
+            val post = PostDetailsFragmentArgs.fromBundle(it).post
+            binding.post = post
+        }
+
+        binding.cancel.setOnClickListener {
+            it.findNavController().navigateUp()
+        }
     }
 }

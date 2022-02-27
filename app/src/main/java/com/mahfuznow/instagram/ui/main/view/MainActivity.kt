@@ -1,6 +1,7 @@
 package com.mahfuznow.instagram.ui.main.view
 
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -32,7 +33,18 @@ class MainActivity : AppCompatActivity() {
         //Setup Action Bar
         NavigationUI.setupActionBarWithNavController(this, navController)
         //Setup Bottom Navigation
-        NavigationUI.setupWithNavController(bottomNavigation, navController);
+        NavigationUI.setupWithNavController(bottomNavigation, navController)
+
+        //Customising ActionBar and BottomNavigation based on the destination
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            if (destination.id == R.id.postDetailsFragment) {
+                supportActionBar?.hide()
+                bottomNavigation.visibility = View.GONE
+            } else {
+                supportActionBar?.show()
+                bottomNavigation.visibility = View.VISIBLE
+            }
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

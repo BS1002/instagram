@@ -9,7 +9,7 @@ import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
-import android.widget.Toast
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
@@ -17,6 +17,7 @@ import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.data.model.PostsData
 import com.mahfuznow.instagram.databinding.ItemPostBinding
 import com.mahfuznow.instagram.ui.base.OnSingleDoubleClickListener
+import com.mahfuznow.instagram.ui.main.view.HomeFragmentDirections
 import javax.inject.Inject
 
 
@@ -78,7 +79,7 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
                     }
 
                     override fun onSingleClick(view: View) {
-                        Toast.makeText(context, "Single Click", Toast.LENGTH_SHORT).show()
+                        view.findNavController().navigate(HomeFragmentDirections.actionHomeToPostDetailsFragment(item))
                     }
                 }
             )

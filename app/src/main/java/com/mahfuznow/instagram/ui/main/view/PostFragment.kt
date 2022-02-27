@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 import com.mahfuznow.instagram.databinding.FragmentPostBinding
 
 class PostFragment : Fragment() {
@@ -22,7 +23,8 @@ class PostFragment : Fragment() {
         val navController = Navigation.findNavController(view)
 
         binding.btnDetails.setOnClickListener {
-            navController.navigate(PostFragmentDirections.actionPostToPostDetailsFragment())
+            //navController.navigate(PostFragmentDirections.actionPostToPostDetailsFragment())
+            //it.findNavController().navigate(PostFragmentDirections.actionPostToPostDetailsFragment())
         }
     }
 }
