@@ -2,20 +2,20 @@ package com.mahfuznow.instagram.ui.main.adapter
 
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AlphaAnimation
 import android.view.animation.Animation
 import android.view.animation.AnimationSet
 import android.view.animation.ScaleAnimation
 import android.widget.ImageView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.data.model.PostsData
 import com.mahfuznow.instagram.databinding.ItemPostBinding
-import com.mahfuznow.instagram.ui.base.DoubleClickListener
+import com.mahfuznow.instagram.ui.base.OnSingleDoubleClickListener
 import javax.inject.Inject
 
 
@@ -70,10 +70,13 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
             setFollowText()
 
             image.setOnClickListener(
-                object : DoubleClickListener() {
-                    override fun onDoubleClick(v: View?) {
+                object : OnSingleDoubleClickListener() {
+                    override fun onDoubleClick() {
                         favourite.toggle()
                         animateHeart(imageHeart)
+                    }
+                    override fun onSingleClick() {
+                        Toast.makeText(context, "Single Click", Toast.LENGTH_SHORT).show()
                     }
                 }
             )
