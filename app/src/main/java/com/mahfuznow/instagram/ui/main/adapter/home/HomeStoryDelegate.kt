@@ -1,4 +1,4 @@
-package com.mahfuznow.instagram.ui.main.adapter
+package com.mahfuznow.instagram.ui.main.adapter.home
 
 import android.app.Application
 import android.view.LayoutInflater
@@ -6,15 +6,17 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
-import com.mahfuznow.instagram.data.model.StoryList
+import com.mahfuznow.instagram.data.model.HomeStory
+import com.mahfuznow.instagram.data.model.StoryAdd
 import com.mahfuznow.instagram.databinding.ItemStoryListBinding
+import com.mahfuznow.instagram.ui.main.adapter.home.story.StoryAdapter
 import javax.inject.Inject
 
-class StoryListDelegate @Inject constructor(
+class HomeStoryDelegate @Inject constructor(
     private val application: Application,
     private val storyAdapter: StoryAdapter
 ) : AdapterDelegate<ArrayList<Any>>() {
-    override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is StoryList
+    override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is HomeStory
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
         StoryListViewHolder(
@@ -23,10 +25,11 @@ class StoryListDelegate @Inject constructor(
 
     override fun onBindViewHolder(items: ArrayList<Any>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
         val story = items[position]
-        story as StoryList
+        story as HomeStory
         holder as StoryListViewHolder
 
         val storyItems = ArrayList<Any>()
+        storyItems.add(StoryAdd())
         storyItems.addAll(story.items)
 
         //items is a field defined in super class of the adapter

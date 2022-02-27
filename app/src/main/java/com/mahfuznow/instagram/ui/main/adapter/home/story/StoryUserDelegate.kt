@@ -1,4 +1,4 @@
-package com.mahfuznow.instagram.ui.main.adapter
+package com.mahfuznow.instagram.ui.main.adapter.home.story
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

@@ -12,9 +12,9 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import com.mahfuznow.instagram.data.model.StoryList
+import com.mahfuznow.instagram.data.model.HomeStory
 import com.mahfuznow.instagram.databinding.FragmentHomeBinding
-import com.mahfuznow.instagram.ui.main.adapter.FeedAdapter
+import com.mahfuznow.instagram.ui.main.adapter.home.HomeAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.HomeFragmentViewModel
 import com.mahfuznow.instagram.util.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,7 +38,7 @@ class HomeFragment : Fragment() {
     private var isLoadedFeed = false
 
     @Inject
-    lateinit var feedAdapter: FeedAdapter
+    lateinit var homeAdapter: HomeAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false)
@@ -52,11 +52,11 @@ class HomeFragment : Fragment() {
         feedRecyclerView = binding.feedRecyclerView
 
         //items is a field defined in super class of the adapter
-        feedAdapter.items = feedList
+        homeAdapter.items = feedList
 
         feedRecyclerView.setHasFixedSize(true)
         feedRecyclerView.layoutManager = LinearLayoutManager(context)
-        feedRecyclerView.adapter = feedAdapter
+        feedRecyclerView.adapter = homeAdapter
 
         observeLiveData()
 
@@ -113,10 +113,10 @@ class HomeFragment : Fragment() {
         if (isLoadedStory && isLoadedFeed) {
             Log.d("test", "updateList: ")
             val updatedItems = ArrayList<Any>()
-            updatedItems.add(StoryList(storyList))
+            updatedItems.add(HomeStory(storyList))
             updatedItems.addAll(feedList)
-            feedAdapter.items = updatedItems
-            feedAdapter.notifyDataSetChanged()
+            homeAdapter.items = updatedItems
+            homeAdapter.notifyDataSetChanged()
             progressBar.visibility = View.INVISIBLE
             swipeRefreshLayout.isRefreshing = false
         }
