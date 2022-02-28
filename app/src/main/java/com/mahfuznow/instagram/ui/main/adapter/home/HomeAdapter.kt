@@ -38,7 +38,10 @@ class HomeAdapter @Inject constructor(
                     for (item in allItems) {
                         when (item) {
                             is PostsData.Data -> {
-                                if (item.owner.firstName.lowercase().contains(charSequence)) {
+                                if (item.owner.firstName.lowercase().contains(charSequence) ||
+                                    item.text.lowercase().contains(charSequence) ||
+                                    item.publishDate.lowercase().contains(charSequence)
+                                ) {
                                     matchedList.add(item)
                                 }
                             }

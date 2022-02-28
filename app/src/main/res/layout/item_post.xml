@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -74,11 +75,11 @@
                     android:id="@+id/follow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:background="@null"
                     android:button="@null"
                     android:checked="false"
                     android:padding="10dp"
                     android:text="@string/follow"
-                    android:background="@null"
                     android:textAllCaps="true"
                     android:textColor="@drawable/checkbox_follow"
                     android:textSize="12sp"
@@ -91,18 +92,32 @@
                 android:layout_height="wrap_content"
                 android:gravity="center">
 
-                <ImageView
-                    android:id="@+id/image"
-                    loadImage="@{post.image}"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:contentDescription="@string/post_image"
-                    android:scaleType="fitCenter"
-                    android:src="@color/grey_trans_50"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="8dp"
+                        android:text="@{post.text}"
+                        tools:text="@string/dummy_text" />
+
+                    <ImageView
+                        android:id="@+id/image"
+                        loadImage="@{post.image}"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:contentDescription="@string/post_image"
+                        android:scaleType="centerInside"
+                        android:src="@color/grey_trans_50" />
+                </LinearLayout>
+
 
                 <ImageView
                     android:id="@+id/imageHeart"
@@ -114,7 +129,7 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="@+id/image"
+                    app:layout_constraintTop_toTopOf="parent"
                     app:tint="@color/white" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
