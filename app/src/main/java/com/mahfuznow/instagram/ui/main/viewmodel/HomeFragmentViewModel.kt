@@ -6,8 +6,6 @@ import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.data.repository.Repository
 import com.mahfuznow.instagram.util.LoadingState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
@@ -18,11 +16,14 @@ class HomeFragmentViewModel @Inject constructor(
     //Observables
     private val reloadTrigger = MutableLiveData<Boolean>()
 
+    private var userPage = (0 until 10).random()
+    private var postPage = (0 until 40).random()
+
     val users: LiveData<LoadingState<UsersData>> = Transformations.switchMap(reloadTrigger) {
-        repository.getUsersDataFlow().asLiveData()
+        repository.getUsersDataFlow(page = userPage).asLiveData()
     }
     val posts: LiveData<LoadingState<PostsData>> = Transformations.switchMap(reloadTrigger) {
-        repository.getPostDataFlow().asLiveData()
+        repository.getPostDataFlow(page = postPage).asLiveData()
     }
 
     init {
@@ -30,6 +31,8 @@ class HomeFragmentViewModel @Inject constructor(
     }
 
     fun reloadLiveData() {
+        userPage = (0 until 10).random()
+        postPage = (0 until 40).random()
         reloadTrigger.value = true
     }
 }
