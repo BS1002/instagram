@@ -1,6 +1,7 @@
 package com.mahfuznow.instagram.di
 
 import com.mahfuznow.instagram.data.api.remote.PostApi
+import com.mahfuznow.instagram.data.api.remote.TagApi
 import com.mahfuznow.instagram.data.api.remote.UserApi
 import dagger.Module
 import dagger.Provides
@@ -51,7 +52,13 @@ object RetrofitModule {
 
     @Singleton
     @Provides
-    fun getPhotoApi(@Named("dummyApi") dummyApiRetrofit: Retrofit): UserApi {
+    fun getUserApi(@Named("dummyApi") dummyApiRetrofit: Retrofit): UserApi {
         return dummyApiRetrofit.create(UserApi::class.java)
+    }
+
+    @Singleton
+    @Provides
+    fun getTagApi(@Named("dummyApi") dummyApiRetrofit: Retrofit): TagApi {
+        return dummyApiRetrofit.create(TagApi::class.java)
     }
 }
