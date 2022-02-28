@@ -9,13 +9,15 @@
         android:id="@+id/home"
         android:name="com.mahfuznow.instagram.ui.main.view.HomeFragment"
         android:label="@string/home"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_home_to_postDetailsFragment"
             app:destination="@id/postDetailsFragment" />
         <action
             android:id="@+id/action_home_to_viewStoryFragment"
-            app:destination="@id/viewStoryFragment" />
+            app:destination="@id/viewStoryFragment"
+            app:enterAnim="@anim/slide_up"
+            app:popExitAnim="@anim/slide_down" />
     </fragment>
     <fragment
         android:id="@+id/search"
@@ -41,7 +43,7 @@
         android:id="@+id/postDetailsFragment"
         android:name="com.mahfuznow.instagram.ui.main.view.PostDetailsFragment"
         android:label="@string/post_details"
-        tools:layout="@layout/fragment_post_details" >
+        tools:layout="@layout/fragment_post_details">
         <argument
             android:name="post"
             app:argType="com.mahfuznow.instagram.data.model.PostsData$Data" />
@@ -49,9 +51,13 @@
     <fragment
         android:id="@+id/viewStoryFragment"
         android:name="com.mahfuznow.instagram.ui.main.view.ViewStoryFragment"
-        android:label="ViewStoryFragment" >
+        android:label="ViewStoryFragment">
+
         <argument
-            android:name="user"
-            app:argType="com.mahfuznow.instagram.data.model.UsersData$Data" />
+            android:name="users"
+            app:argType="com.mahfuznow.instagram.data.model.UsersData$Data[]" />
+        <argument
+            android:name="position"
+            app:argType="integer" />
     </fragment>
 </navigation>

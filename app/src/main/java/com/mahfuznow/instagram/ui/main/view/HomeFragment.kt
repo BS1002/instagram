@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahfuznow.instagram.data.model.HomeStory
+import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.databinding.FragmentHomeBinding
 import com.mahfuznow.instagram.ui.main.adapter.home.HomeAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.HomeFragmentViewModel
@@ -25,7 +26,7 @@ import javax.inject.Inject
 class HomeFragment : Fragment() {
 
     private val viewModel: HomeFragmentViewModel by viewModels()
-    private var storyList: ArrayList<Any> = ArrayList()
+    private var storyList: ArrayList<UsersData.Data> = ArrayList()
     private var feedList: ArrayList<Any> = ArrayList()
 
     private lateinit var binding: FragmentHomeBinding

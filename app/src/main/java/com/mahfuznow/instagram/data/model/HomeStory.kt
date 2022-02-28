@@ -1,5 +1,5 @@
 package com.mahfuznow.instagram.data.model
 
 data class HomeStory(
-    val items : List<Any>
+    val items : ArrayList<UsersData.Data>
 )

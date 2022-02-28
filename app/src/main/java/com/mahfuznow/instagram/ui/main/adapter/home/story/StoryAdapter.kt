@@ -1,15 +1,14 @@
 package com.mahfuznow.instagram.ui.main.adapter.home.story
 
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
-import javax.inject.Inject
+import com.mahfuznow.instagram.data.model.UsersData
 
-class StoryAdapter @Inject constructor(
-    private val storyAddDelegate: StoryAddDelegate,
-    private val storyUserDelegate: StoryUserDelegate
+class StoryAdapter constructor(
+    users: ArrayList<UsersData.Data>
 ) : ListDelegationAdapter<ArrayList<Any>>() {
 
     init {
-        delegatesManager.addDelegate(storyAddDelegate)
-        delegatesManager.addDelegate(storyUserDelegate)
+        delegatesManager.addDelegate(StoryAddDelegate())
+        delegatesManager.addDelegate(StoryUserDelegate(users))
     }
 }

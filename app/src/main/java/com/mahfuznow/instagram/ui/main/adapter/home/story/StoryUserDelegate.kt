@@ -2,15 +2,19 @@ package com.mahfuznow.instagram.ui.main.adapter.home.story
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
+import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.databinding.ItemStoryUserBinding
 import com.mahfuznow.instagram.ui.main.view.HomeFragmentDirections
 import javax.inject.Inject
 
-class StoryUserDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
+class StoryUserDelegate constructor(
+    private val users: ArrayList<UsersData.Data>
+) : AdapterDelegate<ArrayList<Any>>() {
     override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is UsersData.Data
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
@@ -26,7 +30,7 @@ class StoryUserDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>(
         holder.binding.user = item
 
         holder.binding.root.setOnClickListener {
-            it.findNavController().navigate(HomeFragmentDirections.actionHomeToViewStoryFragment(item))
+            it.findNavController().navigate(HomeFragmentDirections.actionHomeToViewStoryFragment(users.toTypedArray(),position))
         }
     }
 

@@ -14,7 +14,6 @@ import javax.inject.Inject
 
 class HomeStoryDelegate @Inject constructor(
     private val application: Application,
-    private val storyAdapter: StoryAdapter
 ) : AdapterDelegate<ArrayList<Any>>() {
     override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is HomeStory
 
@@ -28,10 +27,13 @@ class HomeStoryDelegate @Inject constructor(
         story as HomeStory
         holder as StoryListViewHolder
 
+        //Initializing Story Adapter and passing constructor variables value
+        //This list of items will be used as a argument while navigating to ViewStoryFragment
+        val storyAdapter = StoryAdapter(users = story.items)
+
         val storyItems = ArrayList<Any>()
         storyItems.add(StoryAdd())
         storyItems.addAll(story.items)
-
         //items is a field defined in super class of the adapter
         storyAdapter.items = storyItems
 
