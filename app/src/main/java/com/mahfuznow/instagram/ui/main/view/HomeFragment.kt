@@ -2,16 +2,16 @@ package com.mahfuznow.instagram.ui.main.view
 
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
 import android.widget.ProgressBar
 import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.data.model.HomeStory
 import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.databinding.FragmentHomeBinding
@@ -101,6 +101,8 @@ class HomeFragment : Fragment() {
 
         }
 
+        //Enabling Action Menu
+        setHasOptionsMenu(true)
     }
 
     private fun onError(e: Throwable, msg: String) {
@@ -121,5 +123,34 @@ class HomeFragment : Fragment() {
             progressBar.visibility = View.INVISIBLE
             swipeRefreshLayout.isRefreshing = false
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        super.onCreateOptionsMenu(menu, inflater)
+
+        menu.clear()
+        inflater.inflate(R.menu.action_bar_menu, menu)
+        val searchView = SearchView(requireContext())
+        menu.findItem(R.id.action_search).apply {
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
+            actionView = searchView
+        }
+
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String): Boolean {
+                // filter recycler view when query submitted
+                homeAdapter.filter.filter(query)
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                // filter recycler view when text is changed
+                homeAdapter.filter.filter(newText)
+                return false
+            }
+        })
+
+        searchView.setOnClickListener {}
+        searchView.setOnCloseListener { false }
     }
 }
