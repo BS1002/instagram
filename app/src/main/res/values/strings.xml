@@ -27,4 +27,15 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="dummy_text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s</string>
+    <string name="camera_icon">Camera Icon</string>
+    <string name="image_icon">Image Icon</string>
+    <string name="what_s_on_your_mind">What\'s on your Mind?</string>
+
+    <string-array name="share_visibility">
+        <item>Public</item>
+        <item>Friend</item>
+        <item>Only Me</item>
+    </string-array>
+
+
 </resources>
