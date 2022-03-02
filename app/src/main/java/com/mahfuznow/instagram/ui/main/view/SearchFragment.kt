@@ -16,7 +16,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.databinding.FragmentSearchBinding
-import com.mahfuznow.instagram.ui.main.adapter.search.SearchAdapter
+import com.mahfuznow.instagram.ui.main.adapter.SearchAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.SearchFragmentViewModel
 import com.mahfuznow.instagram.util.LoadingState
 import dagger.hilt.android.AndroidEntryPoint

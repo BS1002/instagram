@@ -1,4 +1,4 @@
-package com.mahfuznow.instagram.ui.main.adapter.home
+package com.mahfuznow.instagram.ui.main.adapter.story
 
 import android.app.Application
 import android.view.LayoutInflater
@@ -9,7 +9,7 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.instagram.data.model.HomeStory
 import com.mahfuznow.instagram.data.model.StoryAdd
 import com.mahfuznow.instagram.databinding.ItemStoryListBinding
-import com.mahfuznow.instagram.ui.main.adapter.home.story.StoryAdapter
+import com.mahfuznow.instagram.ui.main.adapter.StoryAdapter
 import javax.inject.Inject
 
 class HomeStoryDelegate @Inject constructor(

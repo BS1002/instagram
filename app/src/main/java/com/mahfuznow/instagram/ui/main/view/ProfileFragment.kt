@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.databinding.FragmentProfileBinding
-import com.mahfuznow.instagram.ui.main.adapter.profile.ProfileAdapter
+import com.mahfuznow.instagram.ui.main.adapter.ProfileAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.ProfileFragmentViewModel
 import com.mahfuznow.instagram.util.LoadingState
 import dagger.hilt.android.AndroidEntryPoint

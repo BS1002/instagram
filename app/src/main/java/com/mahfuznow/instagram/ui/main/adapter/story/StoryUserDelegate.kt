@@ -1,16 +1,13 @@
-package com.mahfuznow.instagram.ui.main.adapter.home.story
+package com.mahfuznow.instagram.ui.main.adapter.story
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
-import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.databinding.ItemStoryUserBinding
 import com.mahfuznow.instagram.ui.main.view.HomeFragmentDirections
-import javax.inject.Inject
 
 class StoryUserDelegate constructor(
     private val users: ArrayList<UsersData.Data>

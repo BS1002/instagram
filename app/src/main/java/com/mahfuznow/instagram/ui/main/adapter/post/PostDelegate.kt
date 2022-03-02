@@ -1,4 +1,4 @@
-package com.mahfuznow.instagram.ui.main.adapter.home
+package com.mahfuznow.instagram.ui.main.adapter.post
 
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
@@ -21,7 +21,7 @@ import com.mahfuznow.instagram.ui.main.view.HomeFragmentDirections
 import javax.inject.Inject
 
 
-class HomePostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
+class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
     override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is PostsData.Data
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =

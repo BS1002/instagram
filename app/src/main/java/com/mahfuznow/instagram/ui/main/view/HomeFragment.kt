@@ -15,7 +15,7 @@ import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.data.model.HomeStory
 import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.databinding.FragmentHomeBinding
-import com.mahfuznow.instagram.ui.main.adapter.home.HomeAdapter
+import com.mahfuznow.instagram.ui.main.adapter.HomeAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.HomeFragmentViewModel
 import com.mahfuznow.instagram.util.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
