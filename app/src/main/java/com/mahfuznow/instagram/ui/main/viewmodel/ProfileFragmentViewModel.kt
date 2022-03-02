@@ -23,10 +23,6 @@ class ProfileFragmentViewModel @Inject constructor(
         repository.getPostDataByUserFlow(it).asLiveData()
     }
 
-    init {
-        fetchProfile()
-    }
-
     fun fetchProfile(userId: String = "60d0fe4f5311236168a109d1") {
         this.userId.value = userId
     }

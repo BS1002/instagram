@@ -18,12 +18,19 @@
             app:destination="@id/viewStoryFragment"
             app:enterAnim="@anim/slide_up"
             app:popExitAnim="@anim/slide_down" />
+        <action
+            android:id="@+id/action_home_to_profile"
+            app:destination="@id/profile" />
     </fragment>
     <fragment
         android:id="@+id/search"
         android:name="com.mahfuznow.instagram.ui.main.view.SearchFragment"
         android:label="@string/search"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search">
+        <action
+            android:id="@+id/action_search_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/post"
         android:name="com.mahfuznow.instagram.ui.main.view.PostFragment"
@@ -38,10 +45,18 @@
         android:id="@+id/profile"
         android:name="com.mahfuznow.instagram.ui.main.view.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" >
+        tools:layout="@layout/fragment_profile">
         <action
             android:id="@+id/action_profile_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_profile_to_postDetailsFragment"
+            app:destination="@id/postDetailsFragment" />
+        <argument
+            android:name="userId"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
     <fragment
         android:id="@+id/postDetailsFragment"

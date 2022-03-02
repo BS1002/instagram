@@ -60,6 +60,7 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
         private val favourite = binding.favourite
         private val bookmark = binding.bookmark
         private val follow = binding.follow
+        private val ownerImage = binding.ownerImage
         private val image = binding.image
         private val imageHeart = binding.imageHeart
 
@@ -70,6 +71,10 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
             bookmark.isChecked = bookmarkStates.get(position)
             follow.isChecked = followStates.get(position)
             setFollowText()
+
+            ownerImage.setOnClickListener {
+                it.findNavController().navigate(HomeFragmentDirections.actionHomeToProfile(item.owner.id))
+            }
 
             image.setOnClickListener(
                 object : OnSingleDoubleClickListener() {

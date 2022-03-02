@@ -2,10 +2,12 @@ package com.mahfuznow.instagram.ui.main.adapter.post
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.instagram.data.model.PostsData
 import com.mahfuznow.instagram.databinding.ItemPostStaggeredBinding
+import com.mahfuznow.instagram.ui.main.view.SearchFragmentDirections
 import javax.inject.Inject
 
 
@@ -24,6 +26,10 @@ class PostStaggeredDelegate @Inject constructor() : AdapterDelegate<ArrayList<An
 
         //Data binding
         holder.binding.post = item
+
+        holder.binding.root.setOnClickListener {
+            it.findNavController().navigate(SearchFragmentDirections.actionSearchToPostDetailsFragment(item))
+        }
     }
 
     class SearchPostViewHolder(val binding: ItemPostStaggeredBinding) : RecyclerView.ViewHolder(binding.root)
