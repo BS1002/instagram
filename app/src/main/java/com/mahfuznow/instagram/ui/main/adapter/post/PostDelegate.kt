@@ -58,6 +58,9 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
 
         private val context = binding.root.context
         private val favourite = binding.favourite
+        private val comment = binding.comment
+        private val commentPost = binding.commentPost
+        private val commentLayout = binding.commentLayout
         private val bookmark = binding.bookmark
         private val follow = binding.follow
         private val ownerImage = binding.ownerImage
@@ -101,6 +104,17 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
                     favouriteStates.put(position, isChecked)
                 }
             }
+
+            var toggleCommentLayout = false
+            comment.setOnClickListener {
+                toggleCommentLayout = !toggleCommentLayout
+                if (toggleCommentLayout)
+                    commentLayout.visibility = View.VISIBLE
+                else
+                    commentLayout.visibility = View.GONE
+            }
+            commentPost.setOnClickListener { comment.performClick() }
+
             bookmark.run {
                 setOnClickListener {
                     bookmarkStates.put(position, isChecked)

@@ -50,6 +50,7 @@
     <string name="close_friends">Close Friends</string>
     <string name="insights">Insights</string>
     <string name="sign_out">Sign Out</string>
+    <string name="add_a_comment">Add a comment..</string>
 
     <string-array name="share_visibility">
         <item>Public</item>
