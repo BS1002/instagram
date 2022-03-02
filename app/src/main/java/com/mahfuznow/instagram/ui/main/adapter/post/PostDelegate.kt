@@ -1,5 +1,7 @@
 package com.mahfuznow.instagram.ui.main.adapter.post
 
+import android.content.Context
+import android.content.Intent
 import android.util.SparseBooleanArray
 import android.view.LayoutInflater
 import android.view.View
@@ -56,81 +58,87 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
         private val bookmarkStates = SparseBooleanArray()
         private val followStates = SparseBooleanArray()
 
-        private val context = binding.root.context
-        private val favourite = binding.favourite
-        private val comment = binding.comment
-        private val commentPost = binding.commentPost
-        private val commentLayout = binding.commentLayout
-        private val bookmark = binding.bookmark
-        private val follow = binding.follow
-        private val ownerImage = binding.ownerImage
-        private val image = binding.image
-        private val imageHeart = binding.imageHeart
+        val context: Context = binding.root.context
 
         fun onBind(item: PostsData.Data, position: Int) {
+            binding.run {
 
-            //Restore checked state when view is recycled
-            favourite.isChecked = favouriteStates.get(position)
-            bookmark.isChecked = bookmarkStates.get(position)
-            follow.isChecked = followStates.get(position)
-            setFollowText()
+                //Restore checked state when view is recycled
+                favourite.isChecked = favouriteStates.get(position)
+                bookmark.isChecked = bookmarkStates.get(position)
+                follow.isChecked = followStates.get(position)
+                setFollowText()
 
-            ownerImage.setOnClickListener {
-                it.findNavController().navigate(HomeFragmentDirections.actionHomeToProfile(item.owner.id))
-            }
+                ownerImage.setOnClickListener {
+                    it.findNavController().navigate(HomeFragmentDirections.actionHomeToProfile(item.owner.id))
+                }
 
-            image.setOnClickListener(
-                object : OnSingleDoubleClickListener() {
-                    override fun onDoubleClick(view: View) {
-                        favourite.toggle()
-                        animateHeart(imageHeart)
+                image.setOnClickListener(
+                    object : OnSingleDoubleClickListener() {
+                        override fun onDoubleClick(view: View) {
+                            favourite.toggle()
+                            animateHeart(imageHeart)
+                        }
+
+                        override fun onSingleClick(view: View) {
+                            view.findNavController().navigate(HomeFragmentDirections.actionHomeToPostDetailsFragment(item))
+                        }
                     }
+                )
 
-                    override fun onSingleClick(view: View) {
-                        view.findNavController().navigate(HomeFragmentDirections.actionHomeToPostDetailsFragment(item))
-                    }
-                }
-            )
-
-            follow.run {
-                setOnClickListener {
-                    followStates.put(position, isChecked)
-                    setFollowText()
-                }
-            }
-
-            favourite.run {
-                setOnClickListener {
-                    favouriteStates.put(position, isChecked)
-                }
-            }
-
-            var toggleCommentLayout = false
-            comment.setOnClickListener {
-                toggleCommentLayout = !toggleCommentLayout
-                if (toggleCommentLayout)
-                    commentLayout.visibility = View.VISIBLE
-                else
-                    commentLayout.visibility = View.GONE
-            }
-            commentPost.setOnClickListener { comment.performClick() }
-
-            bookmark.run {
-                setOnClickListener {
-                    bookmarkStates.put(position, isChecked)
-                    if (isChecked) {
-                        Snackbar.make(it, "Saved as a collection", Snackbar.LENGTH_SHORT).show()
+                follow.run {
+                    setOnClickListener {
+                        followStates.put(position, isChecked)
+                        setFollowText()
                     }
                 }
+
+                favourite.run {
+                    setOnClickListener {
+                        favouriteStates.put(position, isChecked)
+                    }
+                }
+
+                var toggleCommentLayout = false
+                comment.setOnClickListener {
+                    toggleCommentLayout = !toggleCommentLayout
+                    if (toggleCommentLayout)
+                        commentLayout.visibility = View.VISIBLE
+                    else
+                        commentLayout.visibility = View.GONE
+                }
+                commentPost.setOnClickListener { comment.performClick() }
+
+                bookmark.run {
+                    setOnClickListener {
+                        bookmarkStates.put(position, isChecked)
+                        if (isChecked) {
+                            Snackbar.make(it, "Saved as a collection", Snackbar.LENGTH_SHORT).show()
+                        }
+                    }
+                }
+
+                share.setOnClickListener {
+                    val sendIntent: Intent = Intent().apply {
+                        action = Intent.ACTION_SEND
+                        putExtra(Intent.EXTRA_TEXT, item.image)
+                        type = "text/plain"
+                    }
+                    val shareIntent = Intent.createChooser(sendIntent, null)
+                    context.startActivity(shareIntent)
+                }
             }
+
         }
 
         private fun setFollowText() {
-            follow.run {
-                text = if (isChecked) {
-                    context.getString(R.string.following)
-                } else {
-                    context.getString(R.string.follow)
+            binding.run {
+                follow.run {
+                    text = if (isChecked) {
+                        context.getString(R.string.following)
+                    } else {
+                        context.getString(R.string.follow)
+                    }
                 }
             }
         }
