@@ -6,10 +6,13 @@ import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mahfuznow.instagram.R
+import com.mahfuznow.instagram.databinding.BottomSheetDialogLayoutBinding
 import com.mahfuznow.instagram.databinding.FragmentProfileBinding
 import com.mahfuznow.instagram.ui.main.adapter.ProfileAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.ProfileFragmentViewModel
@@ -118,12 +121,25 @@ class ProfileFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.action_hamburger -> {
-                Toast.makeText(context, "Hamburger Menu", Toast.LENGTH_SHORT).show()
+                showBottomSheetDialog()
                 true
             }
             else -> {
                 true
             }
         }
+    }
+
+    private fun showBottomSheetDialog() {
+        val bottomSheetDialog = BottomSheetDialog(requireContext())
+        val bottomSheetBinding = BottomSheetDialogLayoutBinding.inflate(LayoutInflater.from(requireContext()))
+        bottomSheetDialog.setContentView(bottomSheetBinding.root)
+        bottomSheetDialog.show()
+
+        bottomSheetBinding.settings.setOnClickListener {
+            bottomSheetDialog.dismiss()
+            findNavController().navigate(ProfileFragmentDirections.actionProfileToSettingsFragment())
+        }
+
     }
 }

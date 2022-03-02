@@ -38,7 +38,11 @@
         android:id="@+id/profile"
         android:name="com.mahfuznow.instagram.ui.main.view.ProfileFragment"
         android:label="@string/profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_profile_to_settingsFragment"
+            app:destination="@id/settingsFragment" />
+    </fragment>
     <fragment
         android:id="@+id/postDetailsFragment"
         android:name="com.mahfuznow.instagram.ui.main.view.PostDetailsFragment"
@@ -60,4 +64,9 @@
             android:name="position"
             app:argType="integer" />
     </fragment>
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.mahfuznow.instagram.ui.main.view.SettingsFragment"
+        android:label="@string/settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

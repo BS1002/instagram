@@ -21,14 +21,16 @@
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/splash_screen_bg.xml" value="0.2445" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/splash_screen_dark.xml" value="0.2445" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/text.xml" value="0.2445" />
-        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/activity_main.xml" value="0.18144329896907216" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/background_ic_add.xml" value="0.275" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/bottom_sheet_dialog_layout.xml" value="0.18333333333333332" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_favourite.xml" value="0.275" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_home.xml" value="0.275" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_post.xml" value="0.2601851851851852" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_post_details.xml" value="0.275" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_profile.xml" value="0.18144329896907216" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_search.xml" value="0.18144329896907216" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_settings.xml" value="0.18333333333333332" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_view_story.xml" value="0.275" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/item_image.xml" value="0.2601851851851852" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/item_post.xml" value="0.2" />
@@ -40,6 +42,7 @@
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/item_story_user.xml" value="0.2601851851851852" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/menu/action_bar_menu.xml" value="0.26944444444444443" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/menu/action_bar_menu_hamburger.xml" value="0.18333333333333332" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/menu/action_bar_menu_search.xml" value="0.18333333333333332" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/menu/action_bar_menu_settings.xml" value="0.18333333333333332" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/menu/botoom_nav_menu.xml" value="0.1265625" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/menu/bottom_navigation_menu.xml" value="0.275" />
