@@ -14,4 +14,7 @@ interface PostApi {
 
     @GET("tag/{tag}/post")
     suspend fun getPostsDataByTag(@Path(value = "tag", encoded = true) tag: String): PostsData
+
+    @GET("user/{user-id}/post")
+    suspend fun getPostsDataByUser(@Path(value = "user-id", encoded = true) userId: String): PostsData
 }

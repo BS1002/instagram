@@ -11,7 +11,7 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:elevation="8dp">
 
@@ -22,9 +22,10 @@
             <ImageView
                 loadImage="@{post.image}"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:contentDescription="@string/post_image"
-                android:scaleType="centerCrop"
+                android:scaleType="centerInside"
+                tools:layout_height="300dp"
                 tools:src="@color/grey_trans_50" />
         </LinearLayout>
 

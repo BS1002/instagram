@@ -136,7 +136,7 @@ class SearchFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
 
         menu.clear()
-        inflater.inflate(R.menu.action_bar_menu, menu)
+        inflater.inflate(R.menu.action_bar_menu_search, menu)
         val searchView = SearchView(requireContext())
         menu.findItem(R.id.action_search).apply {
             setShowAsAction(MenuItem.SHOW_AS_ACTION_COLLAPSE_ACTION_VIEW or MenuItem.SHOW_AS_ACTION_IF_ROOM)
