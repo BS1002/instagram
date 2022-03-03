@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.databinding.FragmentSearchBinding
+import com.mahfuznow.instagram.databinding.FragmentSettingsBinding
 import com.mahfuznow.instagram.ui.main.viewmodel.ProfileFragmentViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -13,10 +14,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
-    private lateinit var binding: FragmentSearchBinding
+    private lateinit var binding: FragmentSettingsBinding
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
-        binding = FragmentSearchBinding.inflate(inflater, container, false)
+        binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
 

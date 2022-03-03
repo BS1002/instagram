@@ -87,4 +87,7 @@ dependencies {
     implementation "androidx.activity:activity-ktx:$activityVersion"
     implementation "androidx.fragment:fragment-ktx:$fragmentVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$liveDataVersion"
+
+    //Facebook Shimmer(Loading placeholder animation)
+    implementation 'com.facebook.shimmer:shimmer:0.5.0'
 }

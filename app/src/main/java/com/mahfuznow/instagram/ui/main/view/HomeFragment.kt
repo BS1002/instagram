@@ -11,6 +11,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.data.model.HomeStory
 import com.mahfuznow.instagram.data.model.UsersData
@@ -29,9 +30,8 @@ class HomeFragment : Fragment() {
     private var feedList: ArrayList<Any> = ArrayList()
 
     private lateinit var binding: FragmentHomeBinding
-    private lateinit var progressBar: ProgressBar
+    private lateinit var shimmer: ShimmerFrameLayout
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
-    private lateinit var swipeRefreshListener: SwipeRefreshLayout.OnRefreshListener
     private lateinit var feedRecyclerView: RecyclerView
 
     private var isLoadedStory = false
@@ -51,7 +51,7 @@ class HomeFragment : Fragment() {
         //Enabling Action Menu
         setHasOptionsMenu(true)
 
-        progressBar = binding.progressBar
+        shimmer = binding.shimmer
         feedRecyclerView = binding.feedRecyclerView
 
         //items is a field defined in super class of the adapter
@@ -64,12 +64,12 @@ class HomeFragment : Fragment() {
         observeLiveData()
 
         swipeRefreshLayout = binding.swipeRefreshLayout
-        swipeRefreshListener = SwipeRefreshLayout.OnRefreshListener {
+        swipeRefreshLayout.setOnRefreshListener {
             isLoadedStory = false
             isLoadedFeed = false
+            shimmer.visibility = View.VISIBLE
             viewModel.reloadLiveData()
         }
-        swipeRefreshLayout.setOnRefreshListener(swipeRefreshListener)
     }
 
 
@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun onError(message: String, dataType: String) {
-        progressBar.visibility = View.INVISIBLE
+        shimmer.visibility = View.GONE
         swipeRefreshLayout.isRefreshing = false
         Log.d("test", "Failed to load data $dataType data: $message")
         Toast.makeText(context, "Failed to load $dataType data", Toast.LENGTH_SHORT).show()
@@ -111,7 +111,7 @@ class HomeFragment : Fragment() {
             updatedItems.addAll(feedList)
             homeAdapter.items = updatedItems
             homeAdapter.notifyDataSetChanged()
-            progressBar.visibility = View.INVISIBLE
+            shimmer.visibility = View.GONE
             swipeRefreshLayout.isRefreshing = false
         }
     }

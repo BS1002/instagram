@@ -11,6 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.databinding.BottomSheetDialogLayoutBinding
@@ -32,6 +33,7 @@ class ProfileFragment : Fragment() {
     private var postList: ArrayList<Any> = ArrayList()
 
     private lateinit var binding: FragmentProfileBinding
+    private lateinit var shimmer: ShimmerFrameLayout
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
 
@@ -57,6 +59,8 @@ class ProfileFragment : Fragment() {
             }
         }
 
+        shimmer = binding.shimmer
+
         recyclerView = binding.recyclerView
         //items is a field defined in super class of the adapter
         profileAdapter.items = postList
@@ -68,6 +72,7 @@ class ProfileFragment : Fragment() {
         swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.isRefreshing = true
         swipeRefreshLayout.setOnRefreshListener {
+            shimmer.visibility = View.VISIBLE
             viewModel.reloadData()
         }
 
@@ -99,6 +104,7 @@ class ProfileFragment : Fragment() {
 
 
     private fun onError(message: String, dataType: String) {
+        shimmer.visibility = View.GONE
         swipeRefreshLayout.isRefreshing = false
         Log.d("test", "Failed to load data $dataType data: $message")
         Toast.makeText(context, "Failed to load $dataType data", Toast.LENGTH_SHORT).show()
@@ -108,6 +114,7 @@ class ProfileFragment : Fragment() {
     private fun updateList() {
         if (isLoadedUserDetails && isLoadedPost) {
             Log.d("test", "updateList: ${postList.size} items")
+            shimmer.visibility = View.GONE
             swipeRefreshLayout.isRefreshing = false
             profileAdapter.items = postList
             profileAdapter.notifyDataSetChanged()

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.databinding.FragmentSearchBinding
 import com.mahfuznow.instagram.ui.main.adapter.SearchAdapter
@@ -38,6 +39,7 @@ class SearchFragment : Fragment() {
     lateinit var searchAdapter: SearchAdapter
 
     private lateinit var binding: FragmentSearchBinding
+    private lateinit var shimmer: ShimmerFrameLayout
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
 
@@ -53,6 +55,8 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        shimmer = binding.shimmer
+
         recyclerView = binding.recyclerView
         //items is a field defined in super class of the adapter
         searchAdapter.items = feedList
@@ -64,6 +68,7 @@ class SearchFragment : Fragment() {
         swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.isRefreshing = true
         swipeRefreshLayout.setOnRefreshListener {
+            shimmer.visibility = View.VISIBLE
             requestPostByTag(lastTag)
         }
 
@@ -75,7 +80,6 @@ class SearchFragment : Fragment() {
 
 
     private fun requestPostByTag(tag: String) {
-        swipeRefreshLayout.isRefreshing = true
         viewModel.tagTrigger.value = tag
         lastTag = tag
     }
@@ -109,6 +113,7 @@ class SearchFragment : Fragment() {
 
 
     private fun onError(message: String, dataType: String) {
+        shimmer.visibility = View.GONE
         swipeRefreshLayout.isRefreshing = false
         Log.d("test", "Failed to load data $dataType data: $message")
         Toast.makeText(context, "Failed to load $dataType data", Toast.LENGTH_SHORT).show()
@@ -118,6 +123,7 @@ class SearchFragment : Fragment() {
     private fun updateList() {
         if (isLoadedTag && isLoadedPost) {
             Log.d("test", "updateList: ${feedList.size} items")
+            shimmer.visibility = View.GONE
             swipeRefreshLayout.isRefreshing = false
 
             searchAdapter.items = feedList
