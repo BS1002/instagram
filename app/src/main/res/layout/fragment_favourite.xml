@@ -3,17 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.view.FavouriteFragment"
-    android:background="@color/red"
-    >
+    tools:context=".ui.main.view.FavouriteFragment">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/favourite"
-        android:textColor="?android:textColorPrimaryInverse"
         android:gravity="center"
-        android:textSize="18sp"
-        />
+        android:text="@string/favourite"
+        android:textSize="18sp" />
 
 </FrameLayout>

@@ -11,20 +11,14 @@
         <androidx.cardview.widget.CardView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="3dp"
             app:cardCornerRadius="50dp">
 
-            <LinearLayout
+            <ImageView
                 android:layout_width="60dp"
                 android:layout_height="60dp"
-                android:layout_margin="3dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:contentDescription="@string/user_image"
-                    android:src="@drawable/ic_add_circle_outline" />
-            </LinearLayout>
+                android:background="@drawable/bg_ic_add_circle"
+                android:contentDescription="@string/user_image" />
 
         </androidx.cardview.widget.CardView>
 
@@ -34,5 +28,7 @@
             android:gravity="center_horizontal"
             android:hint="@string/name"
             android:text="@string/add_story" />
+
     </LinearLayout>
+
 </layout>
