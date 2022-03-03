@@ -114,7 +114,7 @@ class HomeFragment : Fragment() {
 
     private fun updateList() {
         if (isLoadedStory && isLoadedFeed) {
-            Log.d("test", "updateList: ")
+            Log.d("test", "updateList: story: ${storyList.size} post: ${feedList.size}")
             val updatedItems = ArrayList<Any>()
             updatedItems.add(HomeStory(storyList))
             updatedItems.addAll(feedList)

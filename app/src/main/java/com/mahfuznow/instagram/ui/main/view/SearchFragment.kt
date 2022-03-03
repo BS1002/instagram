@@ -123,7 +123,7 @@ class SearchFragment : Fragment() {
 
     private fun updateList() {
         if (isLoadedTag && isLoadedPost) {
-            Log.d("test", "updateList: $feedList")
+            Log.d("test", "updateList: ${feedList.size} items")
             swipeRefreshLayout.isRefreshing = false
 
             searchAdapter.items = feedList

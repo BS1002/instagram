@@ -26,7 +26,6 @@ class ProfileFragment : Fragment() {
 
     private val viewModel: ProfileFragmentViewModel by viewModels()
 
-    private var userId: String? = null
 
     @Inject
     lateinit var profileAdapter: ProfileAdapter
@@ -47,12 +46,16 @@ class ProfileFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setHasOptionsMenu(true)
+
         arguments?.let {
             val userId = ProfileFragmentArgs.fromBundle(it).userId
-            this.userId = userId
+            userId?.let { id ->
+                //Loading another user profile
+                viewModel.overrideUserId(id)
+                setHasOptionsMenu(false)
+            }
         }
-
-        requestUserProfile()
 
         recyclerView = binding.recyclerView
         //items is a field defined in super class of the adapter
@@ -65,22 +68,10 @@ class ProfileFragment : Fragment() {
         swipeRefreshLayout = binding.swipeRefreshLayout
         swipeRefreshLayout.isRefreshing = true
         swipeRefreshLayout.setOnRefreshListener {
-            swipeRefreshLayout.isRefreshing = true
-            requestUserProfile()
+            viewModel.reloadData()
         }
 
         observeLiveData()
-    }
-
-    private fun requestUserProfile() {
-        userId?.let {
-            viewModel.fetchProfile(it)
-        } ?: run {
-            viewModel.fetchProfile()
-
-            //Enabling Action Menu
-            setHasOptionsMenu(true)
-        }
     }
 
     private fun observeLiveData() {
@@ -122,7 +113,7 @@ class ProfileFragment : Fragment() {
 
     private fun updateList() {
         if (isLoadedUserDetails && isLoadedPost) {
-            Log.d("test", "updateList: $postList")
+            Log.d("test", "updateList: ${postList.size} items")
             swipeRefreshLayout.isRefreshing = false
             profileAdapter.items = postList
             profileAdapter.notifyDataSetChanged()
