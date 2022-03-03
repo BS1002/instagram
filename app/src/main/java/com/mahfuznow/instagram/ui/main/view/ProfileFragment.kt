@@ -133,7 +133,7 @@ class ProfileFragment : Fragment() {
                 true
             }
             else -> {
-                true
+                super.onOptionsItemSelected(item)
             }
         }
     }
