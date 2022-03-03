@@ -2,9 +2,8 @@ package com.mahfuznow.instagram.ui.main.viewmodel
 
 import androidx.lifecycle.*
 import com.mahfuznow.instagram.data.model.PostsData
-import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.data.repository.Repository
-import com.mahfuznow.instagram.util.LoadingState
+import com.mahfuznow.instagram.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -18,7 +17,7 @@ class SearchFragmentViewModel @Inject constructor(
 
     val tagTrigger = MutableLiveData<String>()
 
-    val posts: LiveData<LoadingState<PostsData>> = Transformations.switchMap(tagTrigger) {
+    val posts: LiveData<Resource<PostsData>> = Transformations.switchMap(tagTrigger) {
         repository.getPostDataByTagFlow(it).asLiveData()
     }
 

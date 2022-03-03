@@ -18,7 +18,6 @@ import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.databinding.FragmentSearchBinding
 import com.mahfuznow.instagram.ui.main.adapter.SearchAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.SearchFragmentViewModel
-import com.mahfuznow.instagram.util.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -59,7 +58,7 @@ class SearchFragment : Fragment() {
         searchAdapter.items = feedList
 
         recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = GridLayoutManager(context,2, LinearLayoutManager.VERTICAL,false)
+        recyclerView.layoutManager = GridLayoutManager(context, 2, LinearLayoutManager.VERTICAL, false)
         recyclerView.adapter = searchAdapter
 
         swipeRefreshLayout = binding.swipeRefreshLayout
@@ -82,45 +81,40 @@ class SearchFragment : Fragment() {
     }
 
     private fun observeLiveData() {
-        viewModel.tags.observe(viewLifecycleOwner) {
-            when (it) {
-                is LoadingState.Error -> onError(it.e, "Tags")
-                is LoadingState.Loading -> Log.d("test", "Tags: Loading")
-                is LoadingState.Success -> {
-                    Log.d("test", "Tags: Success")
-                    isLoadedTag = true
-                    tags.clear()
-                    tags.addAll(it.data.data)
-                    tagAdapter?.addAll(tags)
-                    tagAdapter?.notifyDataSetChanged()
-                }
+        viewModel.tags.observe(viewLifecycleOwner) { resource ->
+            isLoadedTag = !resource.loading
+            resource.data?.let {
+                Log.d("test", "Tags: Success")
+                isLoadedTag = true
+                tags.clear()
+                tags.addAll(it.data)
+                tagAdapter?.addAll(tags)
+                tagAdapter?.notifyDataSetChanged()
+                updateList()
             }
-
+            resource.message?.let { onError(it, "Story") }
         }
 
-        viewModel.posts.observe(viewLifecycleOwner) {
-            when (it) {
-                is LoadingState.Error -> onError(it.e, "Posts")
-                is LoadingState.Loading -> Log.d("test", "Posts: Loading")
-                is LoadingState.Success -> {
-                    Log.d("test", "Posts: Success")
-                    isLoadedPost = true
-                    feedList.clear()
-                    feedList.addAll(it.data.data)
-                    updateList()
-                }
+        viewModel.posts.observe(viewLifecycleOwner) { resource ->
+            isLoadedPost = !resource.loading
+            resource.data?.let {
+                Log.d("test", "Post: Success")
+                feedList.clear()
+                feedList.addAll(it.data)
+                updateList()
             }
-
+            resource.message?.let { onError(it, "Post") }
         }
     }
 
 
-    private fun onError(e: Throwable, msg: String) {
+    private fun onError(message: String, dataType: String) {
         swipeRefreshLayout.isRefreshing = false
-        Log.d("test", "Failed to load data ${e.message} data")
-        Toast.makeText(context, "Failed to load $msg data", Toast.LENGTH_SHORT).show()
+        Log.d("test", "Failed to load data $dataType data: $message")
+        Toast.makeText(context, "Failed to load $dataType data", Toast.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun updateList() {
         if (isLoadedTag && isLoadedPost) {
             Log.d("test", "updateList: ${feedList.size} items")

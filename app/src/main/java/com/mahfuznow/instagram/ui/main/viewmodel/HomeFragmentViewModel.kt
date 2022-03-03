@@ -4,7 +4,7 @@ import androidx.lifecycle.*
 import com.mahfuznow.instagram.data.model.PostsData
 import com.mahfuznow.instagram.data.model.UsersData
 import com.mahfuznow.instagram.data.repository.Repository
-import com.mahfuznow.instagram.util.LoadingState
+import com.mahfuznow.instagram.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
@@ -19,10 +19,10 @@ class HomeFragmentViewModel @Inject constructor(
     private var userPage = (0 until 10).random()
     private var postPage = (0 until 40).random()
 
-    val users: LiveData<LoadingState<UsersData>> = Transformations.switchMap(reloadTrigger) {
+    val users: LiveData<Resource<UsersData>> = Transformations.switchMap(reloadTrigger) {
         repository.getUsersDataFlow(page = userPage).asLiveData()
     }
-    val posts: LiveData<LoadingState<PostsData>> = Transformations.switchMap(reloadTrigger) {
+    val posts: LiveData<Resource<PostsData>> = Transformations.switchMap(reloadTrigger) {
         repository.getPostDataFlow(page = postPage).asLiveData()
     }
 

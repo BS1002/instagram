@@ -1,5 +1,6 @@
 package com.mahfuznow.instagram.ui.main.view
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
@@ -16,7 +17,6 @@ import com.mahfuznow.instagram.databinding.BottomSheetDialogLayoutBinding
 import com.mahfuznow.instagram.databinding.FragmentProfileBinding
 import com.mahfuznow.instagram.ui.main.adapter.ProfileAdapter
 import com.mahfuznow.instagram.ui.main.viewmodel.ProfileFragmentViewModel
-import com.mahfuznow.instagram.util.LoadingState
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -75,42 +75,36 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observeLiveData() {
-        viewModel.userDetails.observe(viewLifecycleOwner) {
-            when (it) {
-                is LoadingState.Error -> onError(it.e, "UserDetails")
-                is LoadingState.Loading -> Log.d("test", "UserDetails: Loading")
-                is LoadingState.Success -> {
-                    Log.d("test", "UserDetails: Success")
-                    isLoadedUserDetails = true
-                    binding.userDetails = it.data
-                }
+        viewModel.userDetails.observe(viewLifecycleOwner) { resource ->
+            isLoadedUserDetails = !resource.loading
+            resource.data?.let {
+                Log.d("test", "User: Success")
+                binding.userDetails = it
+                updateList()
             }
-
+            resource.message?.let { onError(it, "User") }
         }
 
-        viewModel.userPostsData.observe(viewLifecycleOwner) {
-            when (it) {
-                is LoadingState.Error -> onError(it.e, "Posts")
-                is LoadingState.Loading -> Log.d("test", "Posts: Loading")
-                is LoadingState.Success -> {
-                    Log.d("test", "Posts: Success")
-                    isLoadedPost = true
-                    postList.clear()
-                    postList.addAll(it.data.data)
-                    updateList()
-                }
+        viewModel.userPostsData.observe(viewLifecycleOwner) { resource ->
+            isLoadedPost = !resource.loading
+            resource.data?.let {
+                Log.d("test", "Post: Success")
+                postList.clear()
+                postList.addAll(it.data)
+                updateList()
             }
-
+            resource.message?.let { onError(it, "Post") }
         }
     }
 
 
-    private fun onError(e: Throwable, msg: String) {
+    private fun onError(message: String, dataType: String) {
         swipeRefreshLayout.isRefreshing = false
-        Log.d("test", "Failed to load data ${e.message} data")
-        Toast.makeText(context, "Failed to load $msg data", Toast.LENGTH_SHORT).show()
+        Log.d("test", "Failed to load data $dataType data: $message")
+        Toast.makeText(context, "Failed to load $dataType data", Toast.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun updateList() {
         if (isLoadedUserDetails && isLoadedPost) {
             Log.d("test", "updateList: ${postList.size} items")

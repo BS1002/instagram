@@ -8,7 +8,7 @@ import com.mahfuznow.instagram.data.model.PostsData
 import com.mahfuznow.instagram.data.model.TagData
 import com.mahfuznow.instagram.data.model.UserDetails
 import com.mahfuznow.instagram.data.model.UsersData
-import com.mahfuznow.instagram.util.LoadingState
+import com.mahfuznow.instagram.util.Resource
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
@@ -20,51 +20,51 @@ class Repository @Inject constructor(
     private val tagApi: TagApi
 ) {
 
-    fun getUsersDataFlow(limit: Int = 10, page: Int = 1) = flow<LoadingState<UsersData>> {
-        emit(LoadingState.loading())
+    fun getUsersDataFlow(limit: Int = 10, page: Int = 1) = flow<Resource<UsersData>> {
+        emit(Resource.loading())
         val usersData = userApi.getUsersData(limit, page)
-        emit(LoadingState.success(usersData))
+        emit(Resource.success(usersData))
     }.catch {
-        emit(LoadingState.error(it))
+        emit(Resource.error(it.message))
     }
 
-    fun getUsersDetails(userId: String = "60d0fe4f5311236168a109d1") = flow<LoadingState<UserDetails>> {
-        emit(LoadingState.loading())
+    fun getUsersDetails(userId: String = "60d0fe4f5311236168a109d1") = flow<Resource<UserDetails>> {
+        emit(Resource.loading())
         val userDetails = userDetailsApi.getUsersDetails(userId)
-        emit(LoadingState.success(userDetails))
+        emit(Resource.success(userDetails))
     }.catch {
-        emit(LoadingState.error(it))
+        emit(Resource.error(it.message))
     }
 
-    fun getPostDataFlow(limit: Int = 20, page: Int = 1) = flow<LoadingState<PostsData>> {
-        emit(LoadingState.loading())
+    fun getPostDataFlow(limit: Int = 20, page: Int = 1) = flow<Resource<PostsData>> {
+        emit(Resource.loading())
         val postsData = postApi.getPostsData(limit, page)
-        emit(LoadingState.success(postsData))
+        emit(Resource.success(postsData))
     }.catch {
-        emit(LoadingState.error(it))
+        emit(Resource.error(it.message))
     }
 
-    fun getPostDataByTagFlow(tag: String = "water") = flow<LoadingState<PostsData>> {
-        emit(LoadingState.loading())
+    fun getPostDataByTagFlow(tag: String = "water") = flow<Resource<PostsData>> {
+        emit(Resource.loading())
         val postsData = postApi.getPostsDataByTag(tag)
-        emit(LoadingState.success(postsData))
+        emit(Resource.success(postsData))
     }.catch {
-        emit(LoadingState.error(it))
+        emit(Resource.error(it.message))
     }
 
-    fun getPostDataByUserFlow(userId: String = "60d0fe4f5311236168a109d1") = flow<LoadingState<PostsData>> {
-        emit(LoadingState.loading())
+    fun getPostDataByUserFlow(userId: String = "60d0fe4f5311236168a109d1") = flow<Resource<PostsData>> {
+        emit(Resource.loading())
         val postsData = postApi.getPostsDataByUser(userId)
-        emit(LoadingState.success(postsData))
+        emit(Resource.success(postsData))
     }.catch {
-        emit(LoadingState.error(it))
+        emit(Resource.error(it.message))
     }
 
-    fun getTagDataFlow() = flow<LoadingState<TagData>> {
-        emit(LoadingState.loading())
+    fun getTagDataFlow() = flow<Resource<TagData>> {
+        emit(Resource.loading())
         val tagData = tagApi.getTagData()
-        emit(LoadingState.success(tagData))
+        emit(Resource.success(tagData))
     }.catch {
-        emit(LoadingState.error(it))
+        emit(Resource.error(it.message))
     }
 }
