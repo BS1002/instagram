@@ -11,22 +11,17 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:elevation="8dp">
 
-        <LinearLayout
+        <ImageView
+            loadImage="@{post.image}"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <ImageView
-                loadImage="@{post.image}"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:contentDescription="@string/post_image"
-                android:scaleType="centerCrop"
-                tools:src="@color/grey_trans_50" />
-        </LinearLayout>
-
+            android:layout_height="200dp"
+            android:contentDescription="@string/post_image"
+            android:scaleType="centerCrop"
+            tools:src="@color/grey_trans_50" />
     </androidx.cardview.widget.CardView>
+
 </layout>

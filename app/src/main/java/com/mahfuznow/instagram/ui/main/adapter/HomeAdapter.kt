@@ -5,19 +5,19 @@ import android.widget.Filterable
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 import com.mahfuznow.instagram.data.model.PostsData
 import com.mahfuznow.instagram.ui.main.adapter.story.HomeStoryDelegate
-import com.mahfuznow.instagram.ui.main.adapter.post.PostDelegate
+import com.mahfuznow.instagram.ui.main.adapter.post.HomePostDelegate
 import javax.inject.Inject
 
 class HomeAdapter @Inject constructor(
     homeStoryDelegate: HomeStoryDelegate,
-    postDelegate: PostDelegate
+    homePostDelegate: HomePostDelegate
 ) : ListDelegationAdapter<ArrayList<Any>>(), Filterable {
 
     private var allItems: ArrayList<Any> = ArrayList()
 
     init {
         delegatesManager.addDelegate(homeStoryDelegate)
-        delegatesManager.addDelegate(postDelegate)
+        delegatesManager.addDelegate(homePostDelegate)
     }
 
     //backing up full list by copying it. because `items` will be changing by search

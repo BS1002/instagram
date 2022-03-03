@@ -245,7 +245,7 @@
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         app:spanCount="3"
                         tools:itemCount="15"
-                        tools:listitem="@layout/item_post_grid" />
+                        tools:listitem="@layout/item_post_profile" />
                 </androidx.cardview.widget.CardView>
             </LinearLayout>
 

@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.databinding.FragmentSearchBinding
@@ -59,7 +59,7 @@ class SearchFragment : Fragment() {
         searchAdapter.items = feedList
 
         recyclerView.setHasFixedSize(true)
-        recyclerView.layoutManager = StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL)
+        recyclerView.layoutManager = GridLayoutManager(context,2, LinearLayoutManager.VERTICAL,false)
         recyclerView.adapter = searchAdapter
 
         swipeRefreshLayout = binding.swipeRefreshLayout

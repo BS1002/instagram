@@ -23,7 +23,7 @@
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
                 app:spanCount="2"
-                tools:listitem="@layout/item_post_staggered" />
+                tools:listitem="@layout/item_post_search" />
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

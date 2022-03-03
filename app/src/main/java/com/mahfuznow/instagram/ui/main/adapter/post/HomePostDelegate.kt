@@ -17,18 +17,18 @@ import com.google.android.material.snackbar.Snackbar
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.mahfuznow.instagram.R
 import com.mahfuznow.instagram.data.model.PostsData
-import com.mahfuznow.instagram.databinding.ItemPostBinding
+import com.mahfuznow.instagram.databinding.ItemPostHomeBinding
 import com.mahfuznow.instagram.ui.base.OnSingleDoubleClickListener
 import com.mahfuznow.instagram.ui.main.view.HomeFragmentDirections
 import javax.inject.Inject
 
 
-class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
+class HomePostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
     override fun isForViewType(items: ArrayList<Any>, position: Int): Boolean = items[position] is PostsData.Data
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
         PostViewHolder(
-            ItemPostBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemPostHomeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         )
 
     override fun onBindViewHolder(items: ArrayList<Any>, position: Int, holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
@@ -42,7 +42,7 @@ class PostDelegate @Inject constructor() : AdapterDelegate<ArrayList<Any>>() {
         holder.onBind(item, position)
     }
 
-    class PostViewHolder(val binding: ItemPostBinding) : RecyclerView.ViewHolder(binding.root) {
+    class PostViewHolder(val binding: ItemPostHomeBinding) : RecyclerView.ViewHolder(binding.root) {
 
         /**
          * Recycler View recycled it's views to reduce memory consumption
