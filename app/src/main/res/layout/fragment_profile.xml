@@ -266,6 +266,11 @@
                 </LinearLayout>
 
             </androidx.core.widget.NestedScrollView>
+
+            <include
+                android:id="@+id/errorLayout"
+                layout="@layout/error_page" />
+
         </LinearLayout>
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

@@ -3,8 +3,7 @@ package com.mahfuznow.instagram.ui.main.view
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.ProgressBar
-import android.widget.Toast
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -33,6 +32,7 @@ class HomeFragment : Fragment() {
     private lateinit var shimmer: ShimmerFrameLayout
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var feedRecyclerView: RecyclerView
+    private lateinit var errorLayout: LinearLayout
 
     private var isLoadedStory = false
     private var isLoadedFeed = false
@@ -53,6 +53,7 @@ class HomeFragment : Fragment() {
 
         shimmer = binding.shimmer
         feedRecyclerView = binding.feedRecyclerView
+        errorLayout = binding.errorLayout.root
 
         //items is a field defined in super class of the adapter
         homeAdapter.items = feedList
@@ -64,12 +65,14 @@ class HomeFragment : Fragment() {
         observeLiveData()
 
         swipeRefreshLayout = binding.swipeRefreshLayout
-        swipeRefreshLayout.setOnRefreshListener {
+        val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
             isLoadedStory = false
             isLoadedFeed = false
             shimmer.visibility = View.VISIBLE
             viewModel.reloadLiveData()
         }
+        swipeRefreshLayout.setOnRefreshListener(onRefreshListener)
+        binding.errorLayout.tryAgain.setOnClickListener { onRefreshListener.onRefresh() }
     }
 
 
@@ -98,9 +101,10 @@ class HomeFragment : Fragment() {
 
     private fun onError(message: String, dataType: String) {
         shimmer.visibility = View.GONE
+        feedRecyclerView.visibility = View.GONE
+        errorLayout.visibility = View.VISIBLE
         swipeRefreshLayout.isRefreshing = false
         Log.d("test", "Failed to load data $dataType data: $message")
-        Toast.makeText(context, "Failed to load $dataType data", Toast.LENGTH_SHORT).show()
     }
 
     private fun updateList() {
@@ -112,6 +116,7 @@ class HomeFragment : Fragment() {
             homeAdapter.items = updatedItems
             homeAdapter.notifyDataSetChanged()
             shimmer.visibility = View.GONE
+            feedRecyclerView.visibility = View.VISIBLE
             swipeRefreshLayout.isRefreshing = false
         }
     }

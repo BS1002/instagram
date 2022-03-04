@@ -6,7 +6,7 @@ import android.util.Log
 import android.view.*
 import android.widget.AdapterView.OnItemClickListener
 import android.widget.ArrayAdapter
-import android.widget.Toast
+import android.widget.LinearLayout
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -41,9 +41,10 @@ class SearchFragment : Fragment() {
     private lateinit var shimmer: ShimmerFrameLayout
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private lateinit var recyclerView: RecyclerView
+    private lateinit var errorLayout: LinearLayout
 
-    var isLoadedTag = false
-    var isLoadedPost = false
+    private var isLoadedTag = false
+    private var isLoadedPost = false
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -57,6 +58,8 @@ class SearchFragment : Fragment() {
         shimmer = binding.shimmer
 
         recyclerView = binding.recyclerView
+        errorLayout = binding.errorLayout.root
+
         //items is a field defined in super class of the adapter
         searchAdapter.items = feedList
 
@@ -65,11 +68,12 @@ class SearchFragment : Fragment() {
         recyclerView.adapter = searchAdapter
 
         swipeRefreshLayout = binding.swipeRefreshLayout
-        swipeRefreshLayout.isRefreshing = true
-        swipeRefreshLayout.setOnRefreshListener {
+        val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
             shimmer.visibility = View.VISIBLE
             viewModel.reloadData()
         }
+        swipeRefreshLayout.setOnRefreshListener(onRefreshListener)
+        binding.errorLayout.tryAgain.setOnClickListener { onRefreshListener.onRefresh() }
 
         //Enabling Action Menu
         setHasOptionsMenu(true)
@@ -119,8 +123,9 @@ class SearchFragment : Fragment() {
     private fun onError(message: String, dataType: String) {
         shimmer.visibility = View.GONE
         swipeRefreshLayout.isRefreshing = false
+        recyclerView.visibility = View.GONE
+        errorLayout.visibility = View.VISIBLE
         Log.d("test", "Failed to load data $dataType data: $message")
-        Toast.makeText(context, "Failed to load $dataType data", Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -129,6 +134,8 @@ class SearchFragment : Fragment() {
             Log.d("test", "updateList: ${feedList.size} items")
             shimmer.visibility = View.GONE
             swipeRefreshLayout.isRefreshing = false
+            errorLayout.visibility = View.GONE
+            recyclerView.visibility = View.VISIBLE
 
             searchAdapter.items = feedList
             searchAdapter.notifyDataSetChanged()

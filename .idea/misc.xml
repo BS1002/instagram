@@ -13,6 +13,8 @@
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/follow_checkbox_text.xml" value="0.1685" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_bookmark_border.xml" value="0.1685" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_bookmark_filled.xml" value="0.1685" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_emoji.xml" value="0.1705" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_error.xml" value="0.1705" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_favorite_filled.xml" value="0.2445" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_launcher_foreground.xml" value="0.1635" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/drawable/ic_logo.xml" value="0.2445" />
@@ -25,6 +27,7 @@
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/activity_main.xml" value="0.18144329896907216" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/background_ic_add.xml" value="0.275" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/bottom_sheet_dialog_layout.xml" value="0.18333333333333332" />
+        <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/error_page.xml" value="0.24444444444444444" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_favourite.xml" value="0.18144329896907216" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_home.xml" value="0.13883775966342363" />
         <entry key="..\:/GitHub/GitHub-BS1002/instagram/app/src/main/res/layout/fragment_post.xml" value="0.18144329896907216" />

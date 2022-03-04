@@ -4,7 +4,8 @@ import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import android.view.*
-import android.widget.Toast
+import android.widget.LinearLayout
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -35,7 +36,9 @@ class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
     private lateinit var shimmer: ShimmerFrameLayout
     private lateinit var swipeRefreshLayout: SwipeRefreshLayout
+    private lateinit var nestedScrollView: NestedScrollView
     private lateinit var recyclerView: RecyclerView
+    private lateinit var errorLayout: LinearLayout
 
     private var isLoadedUserDetails = false
     private var isLoadedPost = false
@@ -60,8 +63,10 @@ class ProfileFragment : Fragment() {
         }
 
         shimmer = binding.shimmer
-
+        nestedScrollView = binding.nestedScrollView
         recyclerView = binding.recyclerView
+        errorLayout = binding.errorLayout.root
+
         //items is a field defined in super class of the adapter
         profileAdapter.items = postList
 
@@ -70,11 +75,12 @@ class ProfileFragment : Fragment() {
         recyclerView.adapter = profileAdapter
 
         swipeRefreshLayout = binding.swipeRefreshLayout
-        swipeRefreshLayout.isRefreshing = true
-        swipeRefreshLayout.setOnRefreshListener {
+        val onRefreshListener = SwipeRefreshLayout.OnRefreshListener {
             shimmer.visibility = View.VISIBLE
             viewModel.reloadData()
         }
+        swipeRefreshLayout.setOnRefreshListener(onRefreshListener)
+        binding.errorLayout.tryAgain.setOnClickListener { onRefreshListener.onRefresh() }
 
         observeLiveData()
     }
@@ -106,8 +112,9 @@ class ProfileFragment : Fragment() {
     private fun onError(message: String, dataType: String) {
         shimmer.visibility = View.GONE
         swipeRefreshLayout.isRefreshing = false
+        nestedScrollView.visibility = View.GONE
+        errorLayout.visibility = View.VISIBLE
         Log.d("test", "Failed to load data $dataType data: $message")
-        Toast.makeText(context, "Failed to load $dataType data", Toast.LENGTH_SHORT).show()
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -116,6 +123,9 @@ class ProfileFragment : Fragment() {
             Log.d("test", "updateList: ${postList.size} items")
             shimmer.visibility = View.GONE
             swipeRefreshLayout.isRefreshing = false
+            errorLayout.visibility = View.GONE
+            nestedScrollView.visibility = View.VISIBLE
+
             profileAdapter.items = postList
             profileAdapter.notifyDataSetChanged()
         }
