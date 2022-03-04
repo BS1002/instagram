@@ -28,7 +28,6 @@ class SearchFragment : Fragment() {
 
     private val viewModel: SearchFragmentViewModel by viewModels()
     private val tags: ArrayList<String> = ArrayList()
-    private var lastTag: String = "water"
 
     //Adapter for SearchView Autocomplete
     private var tagAdapter: ArrayAdapter<String>? = null
@@ -69,7 +68,7 @@ class SearchFragment : Fragment() {
         swipeRefreshLayout.isRefreshing = true
         swipeRefreshLayout.setOnRefreshListener {
             shimmer.visibility = View.VISIBLE
-            requestPostByTag(lastTag)
+            viewModel.reloadData()
         }
 
         //Enabling Action Menu
@@ -80,8 +79,13 @@ class SearchFragment : Fragment() {
 
 
     private fun requestPostByTag(tag: String) {
-        viewModel.tagTrigger.value = tag
-        lastTag = tag
+        shimmer.visibility = View.VISIBLE
+        viewModel.search(tag)
+    }
+
+    private fun requestPostByTagDebounced(tag: String) {
+        shimmer.visibility = View.VISIBLE
+        viewModel.searchDebounced(tag)
     }
 
     private fun observeLiveData() {
@@ -150,13 +154,14 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-
+                if (newText != "") requestPostByTagDebounced(newText)
                 return false
             }
         })
 
         val searchAutoComplete: SearchView.SearchAutoComplete = searchView.findViewById(androidx.appcompat.R.id.search_src_text)
         //searchAutoComplete.dropDownAnchor = R.id.action_search
+        searchAutoComplete.dropDownHeight = 250
         searchAutoComplete.threshold = 1 //After how many character show Suggestion
         tagAdapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, tags)
         searchAutoComplete.setAdapter(tagAdapter)
